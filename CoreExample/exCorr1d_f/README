@@ -1,0 +1,3 @@
+This function is designed to test the correlate function.
+It's not pretty.  Pipe the output to <file>.m and execute the 
+file in matlab to plot the results.

@@ -1,0 +1,5 @@
+ccfftipEx and ccfftopEx do an fft of L points as defined 
+by the define statement in the program. The input is a sine wave.
+
+ccfftopExVSIP will take any length argument, but it only 
+prints the first 32 values. The default length is 24.

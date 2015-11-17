@@ -1,0 +1,4 @@
+test elementwise vector matrix multiply either by rows or by columns.
+Need VU_c library (vector user library for core. This is not part of VSIP
+but is in this distribution).
+.data files are read in by the test code to input data.

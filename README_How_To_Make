@@ -1,0 +1,184 @@
+The TASP VSIPL implementation was developed mostly in a UNIX GNU 
+type environment; however, the source code may be compiled in any 
+environment that supports an ANSI compliant C compiler.
+
+To make in an environment supporting GNU's make you should be able to 
+just type make. I have noticed that some make's don't act the same 
+as gnu's make so use gnu's make if possible.  You can change options 
+in the top level directory as needed for your C compiler and archiver.
+Other problems may happen if the archiver (ar) is not standard, or if
+'cc' does not invoke the compiler. For instance, you may need to set
+'CC' in the make file to 'gcc' instead of 'cc'. Some systems have more 
+than one C compiler and you will need to decide which one to use.
+
+There are two libraries created with the default make. 
+
+The first (the VSIPL implementation library) I call 'libvsip.a'.  You may 
+make more than one version by changing the name and options. If you name it,
+for instance 'libvsip32.a' or 'libvsip64.a' and then make a link to libvsip.a
+then the default Makefile for the examples should just work (we hope).
+
+The second library is one I call 'libVU.a'. This is just a utility
+library with some simple print routines. This library is not special
+and is not supported by the forum. It is simply a VSIPL User library
+needed to run the included examples. For instance it has functionality to
+print vectors or matrices. I used a format that allows me to cut and paste
+into Matlab for testing.
+
+To write VSIPL User code just place the VSIPL library in some standard
+location, and place the vsip.h file in some standard location. The header
+files in include/privateC are only needed to compile the library and should 
+not be used for portable user code.
+
+IF YOUR NOT ON A UNIX ENVIRONMENT.
+
+For the Plus implementation all the source code is in the src directory.
+The private header files are in the include/privateC directory.
+The only other file needed is vsip.h which is in the include directory.
+
+Using whatever tool you have include all the 'src' files, the headers files
+'include/privateC/*.h' and 'include/vsip.h' and you should be able to create 
+a library for your platform.
+
+I have created libraries using Visual C on Microsoft OS, and using 
+code composer on a development board. I am not expert on either 
+of these tools and just did it to see if I could.
+
+I generally make static libraries, but don't see any reason that
+dynamic libraries could not be built.
+
+HOW TO MAKE TVCPP.
+
+Introduction
+TASP VSIPL Core Plus Plus (TVCPP) has more options than other vesions of
+the implementation. I don't use a configuration tool. To change the options
+you need to modify the top level make file directly using a text editor. This
+is not difficult.
+
+The 'Plus' of the TASP VSIPL Core Plus implementation indicates there are
+more functions included than just the Core profile. The extra Plus in TVCPP
+indicate that this library has some extra build options that will make it
+easier to encapsulate other high performance libraries under VSIPL. I am 
+also trying to reduce dependencies in the library. The idea is to allow
+one to extract an application specific profile from the  library source so the
+entire library would not be needed for a standalone package.
+
+The extra plus also signifies an encapsulation of the FFTW library.
+This enables better FFT performance without introducing non-portability.
+If FFTW were used directly in an application then the application would 
+need to be rewritten to use a vendor optimized VSIPL FFT. 
+
+The significant change to the underlying library methodology is the ability
+of the library to store complex data as always split, always interleaved, 
+default split, or default interleaved.
+
+IMPORTANT NOTE: Don't confuse the user data of split and interleaved with the
+way the library implementation stores the data in computer memory. The block is
+an abstraction from memory. For people doing user level programming of VSIPL compliant
+applications then the actual memory storage of data once it is associated with a 
+block in not important. For people mucking with the implementation to get better
+performance the storage becomes important.
+
+The origional TASP implementation used the default interleaved method. This 
+means that if you did a vsip_cblockcreate_f the library would malloc memory 
+and use it in an interleaved fashion. However if you imported a split complex 
+then the block would be associated directly with this memory and it would  
+remain split. This made admit and release very efficient, and kept the memory
+requirements of a user block at the minimum.
+
+However, if one wanted to encapsulate a function that assumed split memory storage
+for the input data this caused problems. There were then times when the library 
+would fail to operate properly, and an implementation using my blocks and doing
+this encapsulation would not be compliant.
+
+So the first thing I did when doing TVCPP was to implement always interleaved 
+to handle the case where one just wanted to pass the pointer to memory to FFTW
+directly.
+
+ANOTHER IMPORTANT NOTE: The default build is very forgiving. Building with 
+some of these options will mean that the Boolean argument to admit and release
+is now important, and that doing admit and release is also important. Previously
+you could be very sloppy and my library would forgive you. Now sometimes copies 
+are done internal to the block functionality and the library will fail for non-compliant
+code.
+
+So I could go on a long time about what I did, but if you are really interested
+email me directly. I hate documentation and this is going on too long.
+
+INCANTATIONS
+Note that FFTW is either float or double. It depends on which one you build. When
+you build the library it needs to be able to find the 'fftw.h' that you used 
+to build 'libfftw.a'. I just put a link in 'tvcpp/include' to  the right 
+header file. When you  build an application you don't need the FFTW headerfile
+but you do need to put 'libfftw.a' after 'libvsip.a' and the linker has to be able
+to find the FFTW library.
+
+For instance I put a link to 'libfftw.a' in the 'tvcpp/lib' directory and then 
+can compile with something like
+
+cc -o aprogram aprogram.c -I$HOME/tvcpp/include -L$HOME/tvcpp/lib -lvsip.a -lfftw.a -lm
+
+Below are some long lines. You may want to resize this window to accommodate them.
+So for the fastest FFTW results use (in Makefile)
+OPTMACROS=-DVSIP_ALWAYS_INTERLEAVED -DVSIP_ASSUME_COMPLEX_IS_INTERLEAVED -DVSIP_USE_FFTW_FOR_FFT_F -DVSIP_USE_FFT_FOR_FFTM_F
+
+or
+OPTMACROS=-DVSIP_ALWAYS_INTERLEAVED -DVSIP_ASSUME_COMPLEX_IS_INTERLEAVED -DVSIP_USE_FFTW_FOR_FFT_D -DVSIP_USE_FFT_FOR_FFTM_D
+
+depending on whether or not you built FFTW to be float or double. 
+The oposite FFT will remain the default FFT I wrote.
+
+For not so fast FFT results, but probably more robust and will always 
+work (I do some copying of things underneath to the proper FFTW types) use
+OPTMACROS= -DVSIP_USE_FFTW_FOR_FFT_D -DVSIP_USE_FFT_FOR_FFTM_D -DVSIP_USE_FFTW_FOR_FFT_F -DVSIP_USE_FFT_FOR_FFTM_F
+
+For this case I use FFTW to do both float and double fft's, but underneath there is a copy
+to the right precision; so whatever precession you built FFTW with is the precesion you
+will get.
+
+So not every posible combination of options will work, but more than what I defined
+above. I will explain each option and you can try out whichever ones you want.
+
+
+ -DVSIP_ALWAYS_INTERLEAVED
+     => Implies internal complex storage is always interleaved.
+
+ -DVSIP_DEFAULT_SPLIT
+     =>Implies internal complex storage is default split
+     =>If you admit interleaved data it statys interleaved
+
+ -DVSIP_ALWAYS_SPLIT
+     => Implies internal complex storage is always split
+
+(NOTE: THERE IS NO  -DVSIP_DEFAULT_INTERLEAVED, you get that if you
+ don't pick one of the others)
+
+ -DVSIP_ASSUME_COMPLEX_IS_INTERLEAVED
+    => Implies that an array of complex scalars is the same as interleaved complex.
+    => ANSI C does not define the layout of structures, but this is a safe bet.
+    => Needed if you DO NOT want a copy to take place internal to the FFT object.
+    => and for best performance
+
+ -DVSIP_USE_FFTW_FOR_FFT_F
+    => Uses fftw for the float fft engine.
+## -DVSIP_USE_FFTW_FOR_FFT_D
+    => Uses fftw for the double fft engine.
+## -DVSIP_USE_FFT_FOR_FFTM_F
+    => does the multiple fft using a loop and the single fft
+    => of the float precision
+    => DOES NOT USE FFTW mulitple fft functionality
+## -DVSIP_USE_FFT_FOR_FFTM_D
+    => same as above except for double
+
+NOTE: I use the normal FFTW function to caclulate Real to Complex and 
+      Complex to Real FFTs. I don't use FFTWs real to complex FFT. 
+      By rolling my own RC and CR it makes it easier to encapsulate 
+      libraries which don't have this functionality, but still support
+      it in VSIPL.
+
+NOTE: When creating the FFT object I tied the VSIP_ALG_TIME hint in 
+      the fft create function to an option in the FFTW create. 
+      This slows down the create a great deal. Most people probably 
+      should not use this hint, and should select VSIP_ALG_SPACE 
+      or VSIP_ALG_NOISE (which don't do anything in the library).
+

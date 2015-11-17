@@ -1,0 +1,5 @@
+All these examples should return the same answer. 
+cgempEx is equivalent to cgempNNEx. 
+cgempNTEx means A is normal, B is transposed. 
+N is normal, T is transposed, H is hermitian, C is conjugate. 
+Every combination  is not tried.

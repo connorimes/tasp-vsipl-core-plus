@@ -1,0 +1,25 @@
+This example solves a linear least squares problem from
+Linear Algebra, by R Bronson, Academic press.
+using lud.
+The example is in 5.4 example 4
+
+A is 1  2  1
+     3 -1  0
+     2  1 -1
+     1  2  2
+
+b is  1
+      2
+      2
+      1
+
+This reduces to solving
+transpose(A) A = transpose(A) b
+using lud.
+
+Bronson's result is 
+
+x  0.7597
+y  0.2607
+z -0.1772
+

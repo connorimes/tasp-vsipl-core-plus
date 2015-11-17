@@ -1,0 +1,126 @@
+This directory includes a test routine to do "feel good" tests of many of 
+the simple float routines in the Plus implementation of VSIPL. Eventually I would
+like to include tests for every function, but there are a lot and it takes time.
+
+The test_float directory is, for the most part, tests of simple elementwise operations
+or matrix operatons which use some float (double) functionality. 
+
+More complicated tests will have there own directories and will be run seperate from
+the simple tests. In addition integer functions will be in there own directory. Most of
+these tests are generated using sed from templates, but that does not work well for integer
+because the test data is not float. Also there are cases where mixed types are needed. So
+I have decided to seperate the simple integer tests to there own directory.
+
+To run a particular test (after runing make) just type
+test_scp test_p
+
+for instance to test vadd use
+test_scp vadd_f
+
+to test more than one thing at a time type
+test_scp vadd_f vadd_d cvadd_f cvadd_d (etc)
+and the tests will be run in order.
+
+to test everything in the test_float directory use "test_all"
+ 
+It is also easy to create a simple shell script to test many functions.
+
+In general there is a lot of output if you test more than one or two functions.
+I recomend piping the output to a file, open the file in vi (or some other editor),
+and searching the file for 'error'.
+
+For instance 
+make test_all
+test_all >output
+
+If an 'error' is found in 'output' check first that the check limits are not to
+low. Generally I use .0001 as a limit, but for some machines this may be to high.
+Since I don't isolate the test from the vsipl library, believing the best way to test
+is to use the library, if an error occurs it will be necessary to figure out the test
+code a little to ensure the actual error is in the function being tested and not one
+of the other vsipl routines. I don't generally test the support functions directly. But
+I do use them, and I mix up the stride, and types of complex user data. For most routines
+I use split complex user arrays because they are simpler, but sometimes I use interleaved,
+and sometimes I use split and interleaved in the same example. If the library is
+not compliant and does not support all these things then some of the tests will fail
+for that reason.
+
+There have been a couple of bugs that I could not find, and when I recompiled the
+library the bugs "went away". So 'stuff happens' and I am not always sure why. If you
+get a persistent bug on a platform please let me know. If I don't have the platform I usually
+can't fix it, but at least I will be able to look.
+
+To debug a problem create a simple test file. An example is atest.c which follows.
+
+#include<stdio.h>
+#include<string.h>
+#include<vsip.h>
+#include<VU.h>
+#define NDPTR_f ((vsip_scalar_f*)NULL)
+#define NDPTR_d ((vsip_scalar_d*)NULL)
+
+#include"cvadd_d.h"
+
+int main(){
+   vsip_init((void*)0);
+   cvadd_d();
+   vsip_finalize((void*)0);
+   return 0;
+}
+
+To compile this do 
+make atest
+
+the output looks like
+
+>atest
+********
+TEST cvadd_d
+vsip_cvadd_d(a,b,c)
+cvadd_d(a,b,c)
+ vector a
+[
+(2.100000 +1.100000i) ;
+(3.200000 +1.200000i) ;
+(-2.100000 +2.100000i) ;
+(-2.200000 +2.200000i) ;
+(5.100000 -3.100000i) ;
+(5.300000 -3.300000i) ;
+];
+vector b
+[
+(8.100000 +10.100000i) ;
+(10.200000 +11.200000i) ;
+(-12.100000 +22.100000i) ;
+(10.200000 +12.200000i) ;
+(-11.100000 -13.100000i) ;
+(-2.300000 -0.300000i) ;
+];
+vector c
+[
+(10.200000 +11.200000i) ;
+(13.400000 +12.400000i) ;
+(-14.200000 +24.200000i) ;
+(8.000000 +14.400000i) ;
+(-6.000000 -16.200000i) ;
+(3.000000 -3.600000i) ;
+];
+right answer
+[
+( 10.2000 +11.2000i) ;
+( 13.4000 +12.4000i) ;
+(-14.2000 +24.2000i) ;
+(  8.0000 +14.4000i) ;
+( -6.0000 -16.2000i) ;
+(  3.0000  -3.6000i) ;
+];
+correct
+
+a,c in place
+correct
+
+b,c in place
+correct
+
+Randy Judd
+judd@nosc.mil

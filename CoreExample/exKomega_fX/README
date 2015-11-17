@@ -1,0 +1,16 @@
+Not ready for prime time so unless you know what you are doing, suggest
+skiping this example.
+
+NOTE DISCLAIMER: I know very (very) little about Xwindows.
+
+NOTE: On systems which run Xwindows "someplace" there should be a directory 
+called X11R6 (or something similar). In this directory should be a ./lib with
+the standard X libraries and a ./include with the headers. In the Makefile
+set RXDIR equal to this location. On my PowerBook running OSX it is
+/usr/X11R6
+but I have found it in all kinds of places on various machines.
+
+To Make VUX library you must go to 
+./src_VU/graphics/X_f
+and make it directly.  It is not made by default like libVU.a is.
+NOTE ./ is the top level of this distribution, not the directory this readme is in.

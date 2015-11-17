@@ -1,0 +1,1512 @@
+#include<stdio.h>
+#include<string.h>
+#include<vsip.h>
+#include<VU.h>
+
+#include"test_copyfrom_to_user/vcopyfrom_user_d.h"
+#include"test_copyfrom_to_user/vcopyfrom_user_f.h"
+#include"test_copyfrom_to_user/vcopyto_user_d.h"
+#include"test_copyfrom_to_user/vcopyto_user_f.h"
+#include"test_copyfrom_to_user/cvcopyfrom_user_d.h"
+#include"test_copyfrom_to_user/cvcopyfrom_user_f.h"
+#include"test_copyfrom_to_user/cvcopyto_user_d.h"
+#include"test_copyfrom_to_user/cvcopyto_user_f.h"
+#include"test_copyfrom_to_user/mcopyfrom_user_d.h"
+#include"test_copyfrom_to_user/mcopyfrom_user_f.h"
+#include"test_copyfrom_to_user/mcopyto_user_d.h"
+#include"test_copyfrom_to_user/mcopyto_user_f.h"
+#include"test_copyfrom_to_user/cmcopyfrom_user_d.h"
+#include"test_copyfrom_to_user/cmcopyfrom_user_f.h"
+#include"test_copyfrom_to_user/cmcopyto_user_d.h"
+#include"test_copyfrom_to_user/cmcopyto_user_f.h"
+#include"test_scp_support/cblock_admit_release_d.h"
+#include"test_scp_support/cblock_admit_release_f.h"
+#include"test_scp_support/get_put_attrib_uc.h"
+#include"test_scp_support/get_put_length_uc.h"
+#include"test_scp_support/get_put_offset_uc.h"
+#include"test_scp_support/get_put_stride_uc.h"
+#include"test_scp_support/mcloneview_uc.h"
+#include"test_scp_support/mget_put_uc.h"
+#include"test_scp_support/msubview_uc.h"
+#include"test_scp_support/mtransview_uc.h"
+#include"test_scp_support/row_col_view_uc.h"
+#include"test_scp_support/tcloneview_uc.h"
+#include"test_scp_support/tget_put_uc.h"
+#include"test_scp_support/tmisc_view_uc.h"
+#include"test_scp_support/tsubview_uc.h"
+#include"test_scp_support/vcloneview_uc.h"
+#include"test_scp_support/vget_put_uc.h"
+#include"test_scp_support/vsubview_uc.h"
+#include"test_scp_fft/ccfftip_d.h"
+#include"test_scp_fft/ccfftip_f.h"
+#include"test_scp_fft/ccfftop_d.h"
+#include"test_scp_fft/ccfftop_f.h"
+#include"test_scp_fft/ccfftop_sc_d.h"
+#include"test_scp_fft/ccfftop_sc_f.h"
+#include"test_scp_fft/crfftop_d.h"
+#include"test_scp_fft/crfftop_f.h"
+#include"test_scp_fft/iccfftip_d.h"
+#include"test_scp_fft/iccfftip_f.h"
+#include"test_scp_fft/iccfftop_d.h"
+#include"test_scp_fft/iccfftop_f.h"
+#include"test_scp_fft/rcfftop_d.h"
+#include"test_scp_fft/rcfftop_f.h"
+#include"test_scp_fft/test_fft.h"
+#include"test_scp_fir/cfir_N201_D2_d.h"
+#include"test_scp_fir/cfir_N201_D2_f.h"
+#include"test_scp_fir/cfir_N201_D3_d.h"
+#include"test_scp_fir/cfir_N201_D3_f.h"
+#include"test_scp_fir/firE_n3_N67_D2_d.h"
+#include"test_scp_fir/firE_n3_N67_D2_f.h"
+#include"test_scp_fir/firO_n3_N67_D3_d.h"
+#include"test_scp_fir/firO_n3_N67_D3_f.h"
+#include"test_scp_fir/fir_N200_D1_d.h"
+#include"test_scp_fir/fir_N200_D1_f.h"
+#include"test_scp_fir/fir_N201_D1_NS_d.h"
+#include"test_scp_fir/fir_N201_D1_NS_f.h"
+#include"test_scp_fir/fir_N201_D1_NS_sc_d.h"
+#include"test_scp_fir/fir_N201_D1_NS_sc_f.h"
+#include"test_scp_fir/fir_N201_D1_d.h"
+#include"test_scp_fir/fir_N201_D1_f.h"
+#include"test_scp_fir/fir_N201_D2_NS_d.h"
+#include"test_scp_fir/fir_N201_D2_NS_f.h"
+#include"test_scp_fir/fir_N201_D2_NS_sc_d.h"
+#include"test_scp_fir/fir_N201_D2_NS_sc_f.h"
+#include"test_scp_fir/fir_N201_D2_d.h"
+#include"test_scp_fir/fir_N201_D2_f.h"
+#include"test_scp_fir/fir_N201_D3_NS_d.h"
+#include"test_scp_fir/fir_N201_D3_NS_f.h"
+#include"test_scp_fir/fir_N201_D3_d.h"
+#include"test_scp_fir/fir_N201_D3_f.h"
+#include"test_scp_fir/fir_N201_D3_sc_d.h"
+#include"test_scp_fir/fir_N201_D3_sc_f.h"
+#include"test_scp_fir/fir_n3_N67_D1_d.h"
+#include"test_scp_fir/fir_n3_N67_D1_f.h"
+#include"test_scp_fir/fir_n3_N67_D2_d.h"
+#include"test_scp_fir/fir_n3_N67_D2_f.h"
+#include"test_scp_fir/fir_n3_N67_D3_NS_d.h"
+#include"test_scp_fir/fir_n3_N67_D3_NS_f.h"
+#include"test_scp_fir/fir_n3_N67_D3_d.h"
+#include"test_scp_fir/fir_n3_N67_D3_f.h"
+#include"test_scp_fir/test_fir.h"
+#include"test_scp_scalar/acos_d.h"
+#include"test_scp_scalar/acos_f.h"
+#include"test_scp_scalar/arg_d.h"
+#include"test_scp_scalar/arg_f.h"
+#include"test_scp_scalar/asin_d.h"
+#include"test_scp_scalar/asin_f.h"
+#include"test_scp_scalar/atan2_d.h"
+#include"test_scp_scalar/atan2_f.h"
+#include"test_scp_scalar/atan_d.h"
+#include"test_scp_scalar/atan_f.h"
+#include"test_scp_scalar/cadd_d.h"
+#include"test_scp_scalar/cadd_f.h"
+#include"test_scp_scalar/cdiv_d.h"
+#include"test_scp_scalar/cdiv_f.h"
+#include"test_scp_scalar/ceil_d.h"
+#include"test_scp_scalar/ceil_f.h"
+#include"test_scp_scalar/cexp_d.h"
+#include"test_scp_scalar/cexp_f.h"
+#include"test_scp_scalar/cjmul_d.h"
+#include"test_scp_scalar/cjmul_f.h"
+#include"test_scp_scalar/clog_d.h"
+#include"test_scp_scalar/clog_f.h"
+#include"test_scp_scalar/cmag_d.h"
+#include"test_scp_scalar/cmag_f.h"
+#include"test_scp_scalar/cmagsq_d.h"
+#include"test_scp_scalar/cmagsq_f.h"
+#include"test_scp_scalar/cmplx_d.h"
+#include"test_scp_scalar/cmplx_f.h"
+#include"test_scp_scalar/cmul_d.h"
+#include"test_scp_scalar/cmul_f.h"
+#include"test_scp_scalar/cneg_d.h"
+#include"test_scp_scalar/cneg_f.h"
+#include"test_scp_scalar/conj_d.h"
+#include"test_scp_scalar/conj_f.h"
+#include"test_scp_scalar/cos_d.h"
+#include"test_scp_scalar/cos_f.h"
+#include"test_scp_scalar/cosh_d.h"
+#include"test_scp_scalar/cosh_f.h"
+#include"test_scp_scalar/crecip_d.h"
+#include"test_scp_scalar/crecip_f.h"
+#include"test_scp_scalar/csqrt_d.h"
+#include"test_scp_scalar/csqrt_f.h"
+#include"test_scp_scalar/csub_d.h"
+#include"test_scp_scalar/csub_f.h"
+#include"test_scp_scalar/exp10_d.h"
+#include"test_scp_scalar/exp10_f.h"
+#include"test_scp_scalar/exp_d.h"
+#include"test_scp_scalar/exp_f.h"
+#include"test_scp_scalar/floor_d.h"
+#include"test_scp_scalar/floor_f.h"
+#include"test_scp_scalar/fmod_d.h"
+#include"test_scp_scalar/fmod_f.h"
+#include"test_scp_scalar/hypot_d.h"
+#include"test_scp_scalar/hypot_f.h"
+#include"test_scp_scalar/imag_d.h"
+#include"test_scp_scalar/imag_f.h"
+#include"test_scp_scalar/log10_d.h"
+#include"test_scp_scalar/log10_f.h"
+#include"test_scp_scalar/log_d.h"
+#include"test_scp_scalar/log_f.h"
+#include"test_scp_scalar/mag_d.h"
+#include"test_scp_scalar/mag_f.h"
+#include"test_scp_scalar/matindex.h"
+#include"test_scp_scalar/max_d.h"
+#include"test_scp_scalar/max_f.h"
+#include"test_scp_scalar/mcolindex.h"
+#include"test_scp_scalar/min_d.h"
+#include"test_scp_scalar/min_f.h"
+#include"test_scp_scalar/mrowindex.h"
+#include"test_scp_scalar/polar_d.h"
+#include"test_scp_scalar/polar_f.h"
+#include"test_scp_scalar/pow_d.h"
+#include"test_scp_scalar/pow_f.h"
+#include"test_scp_scalar/real_f.h"
+#include"test_scp_scalar/rect_d.h"
+#include"test_scp_scalar/rect_f.h"
+#include"test_scp_scalar/rsqrt_d.h"
+#include"test_scp_scalar/rsqrt_f.h"
+#include"test_scp_scalar/sin_d.h"
+#include"test_scp_scalar/sin_f.h"
+#include"test_scp_scalar/sinh_d.h"
+#include"test_scp_scalar/sinh_f.h"
+#include"test_scp_scalar/sqrt_d.h"
+#include"test_scp_scalar/sqrt_f.h"
+#include"test_scp_scalar/tan_d.h"
+#include"test_scp_scalar/tan_f.h"
+#include"test_scp_scalar/tanh_d.h"
+#include"test_scp_scalar/tanh_f.h"
+#include"test_scp_simple/cgemp_d.h"
+#include"test_scp_simple/cgemp_f.h"
+#include"test_scp_simple/cgems_d.h"
+#include"test_scp_simple/cgems_f.h"
+#include"test_scp_simple/cmadd_d.h"
+#include"test_scp_simple/cmadd_f.h"
+#include"test_scp_simple/cmconj_d.h"
+#include"test_scp_simple/cmconj_f.h"
+#include"test_scp_simple/cmdiv_d.h"
+#include"test_scp_simple/cmdiv_f.h"
+#include"test_scp_simple/cmexp_d.h"
+#include"test_scp_simple/cmexp_f.h"
+#include"test_scp_simple/cmexpoavg_d.h"
+#include"test_scp_simple/cmexpoavg_f.h"
+#include"test_scp_simple/cmfill_d.h"
+#include"test_scp_simple/cmfill_f.h"
+#include"test_scp_simple/cmgather_d.h"
+#include"test_scp_simple/cmgather_f.h"
+#include"test_scp_simple/cmherm_d.h"
+#include"test_scp_simple/cmherm_f.h"
+#include"test_scp_simple/cmjmul_d.h"
+#include"test_scp_simple/cmjmul_f.h"
+#include"test_scp_simple/cmlog_d.h"
+#include"test_scp_simple/cmlog_f.h"
+#include"test_scp_simple/cmmag_d.h"
+#include"test_scp_simple/cmmag_f.h"
+#include"test_scp_simple/cmmeansqval_d.h"
+#include"test_scp_simple/cmmeansqval_f.h"
+#include"test_scp_simple/cmmeanval_d.h"
+#include"test_scp_simple/cmmeanval_f.h"
+#include"test_scp_simple/cmmul_d.h"
+#include"test_scp_simple/cmmul_f.h"
+#include"test_scp_simple/cmneg_d.h"
+#include"test_scp_simple/cmneg_f.h"
+#include"test_scp_simple/cmprod_d.h"
+#include"test_scp_simple/cmprod_f.h"
+#include"test_scp_simple/cmprodh_d.h"
+#include"test_scp_simple/cmprodh_f.h"
+#include"test_scp_simple/cmprodj_d.h"
+#include"test_scp_simple/cmprodj_f.h"
+#include"test_scp_simple/cmprodt_d.h"
+#include"test_scp_simple/cmprodt_f.h"
+#include"test_scp_simple/cmrecip_d.h"
+#include"test_scp_simple/cmrecip_f.h"
+#include"test_scp_simple/cmrsdiv_d.h"
+#include"test_scp_simple/cmrsdiv_f.h"
+#include"test_scp_simple/cmscatter_d.h"
+#include"test_scp_simple/cmscatter_f.h"
+#include"test_scp_simple/cmsqrt_d.h"
+#include"test_scp_simple/cmsqrt_f.h"
+#include"test_scp_simple/cmsub_d.h"
+#include"test_scp_simple/cmsub_f.h"
+#include"test_scp_simple/cmswap_d.h"
+#include"test_scp_simple/cmswap_f.h"
+#include"test_scp_simple/cmtrans_d.h"
+#include"test_scp_simple/cmtrans_f.h"
+#include"test_scp_simple/cmvprod_d.h"
+#include"test_scp_simple/cmvprod_f.h"
+#include"test_scp_simple/crmdiv_d.h"
+#include"test_scp_simple/crmdiv_f.h"
+#include"test_scp_simple/crmsub_d.h"
+#include"test_scp_simple/crmsub_f.h"
+#include"test_scp_simple/crvdiv_d.h"
+#include"test_scp_simple/crvdiv_f.h"
+#include"test_scp_simple/crvsub_d.h"
+#include"test_scp_simple/crvsub_f.h"
+#include"test_scp_simple/csmadd_d.h"
+#include"test_scp_simple/csmadd_f.h"
+#include"test_scp_simple/csmdiv_d.h"
+#include"test_scp_simple/csmdiv_f.h"
+#include"test_scp_simple/csmmul_d.h"
+#include"test_scp_simple/csmmul_f.h"
+#include"test_scp_simple/csmsub_d.h"
+#include"test_scp_simple/csmsub_f.h"
+#include"test_scp_simple/csvadd_d.h"
+#include"test_scp_simple/csvadd_f.h"
+#include"test_scp_simple/csvdiv_d.h"
+#include"test_scp_simple/csvdiv_f.h"
+#include"test_scp_simple/csvmul_d.h"
+#include"test_scp_simple/csvmul_f.h"
+#include"test_scp_simple/cvadd_d.h"
+#include"test_scp_simple/cvadd_f.h"
+#include"test_scp_simple/cvam_d.h"
+#include"test_scp_simple/cvam_f.h"
+#include"test_scp_simple/cvconj_d.h"
+#include"test_scp_simple/cvconj_f.h"
+#include"test_scp_simple/cvdiv_d.h"
+#include"test_scp_simple/cvdiv_f.h"
+#include"test_scp_simple/cvdot_d.h"
+#include"test_scp_simple/cvdot_f.h"
+#include"test_scp_simple/cvexp_d.h"
+#include"test_scp_simple/cvexp_f.h"
+#include"test_scp_simple/cvexpoavg_d.h"
+#include"test_scp_simple/cvexpoavg_f.h"
+#include"test_scp_simple/cvfill_d.h"
+#include"test_scp_simple/cvfill_f.h"
+#include"test_scp_simple/cvgather_d.h"
+#include"test_scp_simple/cvgather_f.h"
+#include"test_scp_simple/cvjdot_d.h"
+#include"test_scp_simple/cvjdot_f.h"
+#include"test_scp_simple/cvjmul_d.h"
+#include"test_scp_simple/cvjmul_f.h"
+#include"test_scp_simple/cvlog_d.h"
+#include"test_scp_simple/cvlog_f.h"
+#include"test_scp_simple/cvmag_d.h"
+#include"test_scp_simple/cvmag_f.h"
+#include"test_scp_simple/cvmeansqval_d.h"
+#include"test_scp_simple/cvmeansqval_f.h"
+#include"test_scp_simple/cvmmul_d.h"
+#include"test_scp_simple/cvmmul_f.h"
+#include"test_scp_simple/cvmprod_d.h"
+#include"test_scp_simple/cvmprod_f.h"
+#include"test_scp_simple/cvmsa_d.h"
+#include"test_scp_simple/cvmsa_f.h"
+#include"test_scp_simple/cvmul_d.h"
+#include"test_scp_simple/cvmul_f.h"
+#include"test_scp_simple/cvneg_d.h"
+#include"test_scp_simple/cvneg_f.h"
+#include"test_scp_simple/cvouter_d.h"
+#include"test_scp_simple/cvouter_f.h"
+#include"test_scp_simple/cvrsdiv_d.h"
+#include"test_scp_simple/cvrsdiv_f.h"
+#include"test_scp_simple/cvsam_d.h"
+#include"test_scp_simple/cvsam_f.h"
+#include"test_scp_simple/cvscatter_d.h"
+#include"test_scp_simple/cvscatter_f.h"
+#include"test_scp_simple/cvsma_d.h"
+#include"test_scp_simple/cvsma_f.h"
+#include"test_scp_simple/cvsub_d.h"
+#include"test_scp_simple/cvsub_f.h"
+#include"test_scp_simple/cvswap_d.h"
+#include"test_scp_simple/cvswap_f.h"
+#include"test_scp_simple/gemp_d.h"
+#include"test_scp_simple/gemp_f.h"
+#include"test_scp_simple/gems_d.h"
+#include"test_scp_simple/gems_f.h"
+#include"test_scp_simple/macos_d.h"
+#include"test_scp_simple/macos_f.h"
+#include"test_scp_simple/madd_d.h"
+#include"test_scp_simple/madd_f.h"
+#include"test_scp_simple/malltrue_bl.h"
+#include"test_scp_simple/manytrue_bl.h"
+#include"test_scp_simple/marg_d.h"
+#include"test_scp_simple/marg_f.h"
+#include"test_scp_simple/masin_d.h"
+#include"test_scp_simple/masin_f.h"
+#include"test_scp_simple/matan2_d.h"
+#include"test_scp_simple/matan2_f.h"
+#include"test_scp_simple/matan_d.h"
+#include"test_scp_simple/matan_f.h"
+#include"test_scp_simple/mclip_d.h"
+#include"test_scp_simple/mclip_f.h"
+#include"test_scp_simple/mcmagsq_d.h"
+#include"test_scp_simple/mcmagsq_f.h"
+#include"test_scp_simple/mcmaxmgsq_d.h"
+#include"test_scp_simple/mcmaxmgsq_f.h"
+#include"test_scp_simple/mcmaxmgsqval_d.h"
+#include"test_scp_simple/mcmaxmgsqval_f.h"
+#include"test_scp_simple/mcminmgsq_d.h"
+#include"test_scp_simple/mcminmgsq_f.h"
+#include"test_scp_simple/mcminmgsqval_d.h"
+#include"test_scp_simple/mcminmgsqval_f.h"
+#include"test_scp_simple/mcos_d.h"
+#include"test_scp_simple/mcos_f.h"
+#include"test_scp_simple/mcosh_d.h"
+#include"test_scp_simple/mcosh_f.h"
+#include"test_scp_simple/mdiv_d.h"
+#include"test_scp_simple/mdiv_f.h"
+#include"test_scp_simple/meuler_d.h"
+#include"test_scp_simple/meuler_f.h"
+#include"test_scp_simple/mexp10_d.h"
+#include"test_scp_simple/mexp10_f.h"
+#include"test_scp_simple/mexp_d.h"
+#include"test_scp_simple/mexp_f.h"
+#include"test_scp_simple/mexpoavg_d.h"
+#include"test_scp_simple/mexpoavg_f.h"
+#include"test_scp_simple/mfill_d.h"
+#include"test_scp_simple/mfill_f.h"
+#include"test_scp_simple/mgather_d.h"
+#include"test_scp_simple/mgather_f.h"
+#include"test_scp_simple/mhypot_d.h"
+#include"test_scp_simple/mhypot_f.h"
+#include"test_scp_simple/mindexbool.h"
+#include"test_scp_simple/minvclip_d.h"
+#include"test_scp_simple/minvclip_f.h"
+#include"test_scp_simple/mleq_d.h"
+#include"test_scp_simple/mleq_f.h"
+#include"test_scp_simple/mlge_d.h"
+#include"test_scp_simple/mlge_f.h"
+#include"test_scp_simple/mlgt_d.h"
+#include"test_scp_simple/mlgt_f.h"
+#include"test_scp_simple/mlle_d.h"
+#include"test_scp_simple/mlle_f.h"
+#include"test_scp_simple/mllt_d.h"
+#include"test_scp_simple/mllt_f.h"
+#include"test_scp_simple/mlne_d.h"
+#include"test_scp_simple/mlne_f.h"
+#include"test_scp_simple/mlog10_d.h"
+#include"test_scp_simple/mlog10_f.h"
+#include"test_scp_simple/mlog_d.h"
+#include"test_scp_simple/mlog_f.h"
+#include"test_scp_simple/mmag_d.h"
+#include"test_scp_simple/mmag_f.h"
+#include"test_scp_simple/mmax_d.h"
+#include"test_scp_simple/mmax_f.h"
+#include"test_scp_simple/mmaxmg_d.h"
+#include"test_scp_simple/mmaxmg_f.h"
+#include"test_scp_simple/mmaxmgval_d.h"
+#include"test_scp_simple/mmaxmgval_f.h"
+#include"test_scp_simple/mmaxval_d.h"
+#include"test_scp_simple/mmaxval_f.h"
+#include"test_scp_simple/mmeansqval_d.h"
+#include"test_scp_simple/mmeansqval_f.h"
+#include"test_scp_simple/mmeanval_d.h"
+#include"test_scp_simple/mmeanval_f.h"
+#include"test_scp_simple/mmin_d.h"
+#include"test_scp_simple/mmin_f.h"
+#include"test_scp_simple/mminmg_d.h"
+#include"test_scp_simple/mminmg_f.h"
+#include"test_scp_simple/mminmgval_d.h"
+#include"test_scp_simple/mminmgval_f.h"
+#include"test_scp_simple/mminval_d.h"
+#include"test_scp_simple/mminval_f.h"
+#include"test_scp_simple/mmul_d.h"
+#include"test_scp_simple/mmul_f.h"
+#include"test_scp_simple/mneg_d.h"
+#include"test_scp_simple/mneg_f.h"
+#include"test_scp_simple/mprod_d.h"
+#include"test_scp_simple/mprod_f.h"
+#include"test_scp_simple/mprodt_d.h"
+#include"test_scp_simple/mprodt_f.h"
+#include"test_scp_simple/mrecip_d.h"
+#include"test_scp_simple/mrecip_f.h"
+#include"test_scp_simple/mrsqrt_d.h"
+#include"test_scp_simple/mrsqrt_f.h"
+#include"test_scp_simple/mscatter_d.h"
+#include"test_scp_simple/mscatter_f.h"
+#include"test_scp_simple/msdiv_d.h"
+#include"test_scp_simple/msdiv_f.h"
+#include"test_scp_simple/msin_d.h"
+#include"test_scp_simple/msin_f.h"
+#include"test_scp_simple/msinh_d.h"
+#include"test_scp_simple/msinh_f.h"
+#include"test_scp_simple/msq_d.h"
+#include"test_scp_simple/msq_f.h"
+#include"test_scp_simple/msqrt_d.h"
+#include"test_scp_simple/msqrt_f.h"
+#include"test_scp_simple/msub_d.h"
+#include"test_scp_simple/msub_f.h"
+#include"test_scp_simple/msumsqval_d.h"
+#include"test_scp_simple/msumsqval_f.h"
+#include"test_scp_simple/msumval_bl.h"
+#include"test_scp_simple/msumval_d.h"
+#include"test_scp_simple/msumval_f.h"
+#include"test_scp_simple/mswap_d.h"
+#include"test_scp_simple/mswap_f.h"
+#include"test_scp_simple/mtan_d.h"
+#include"test_scp_simple/mtan_f.h"
+#include"test_scp_simple/mtanh_d.h"
+#include"test_scp_simple/mtanh_f.h"
+#include"test_scp_simple/mtrans_d.h"
+#include"test_scp_simple/mtrans_f.h"
+#include"test_scp_simple/mvprod_d.h"
+#include"test_scp_simple/mvprod_f.h"
+#include"test_scp_simple/rcmadd_d.h"
+#include"test_scp_simple/rcmadd_f.h"
+#include"test_scp_simple/rcmdiv_d.h"
+#include"test_scp_simple/rcmdiv_f.h"
+#include"test_scp_simple/rcmmul_d.h"
+#include"test_scp_simple/rcmmul_f.h"
+#include"test_scp_simple/rcmsub_d.h"
+#include"test_scp_simple/rcmsub_f.h"
+#include"test_scp_simple/rcvadd_d.h"
+#include"test_scp_simple/rcvadd_f.h"
+#include"test_scp_simple/rcvdiv_d.h"
+#include"test_scp_simple/rcvdiv_f.h"
+#include"test_scp_simple/rcvmul_d.h"
+#include"test_scp_simple/rcvmul_f.h"
+#include"test_scp_simple/rcvsub_d.h"
+#include"test_scp_simple/rcvsub_f.h"
+#include"test_scp_simple/rscmadd_d.h"
+#include"test_scp_simple/rscmadd_f.h"
+#include"test_scp_simple/rscmdiv_d.h"
+#include"test_scp_simple/rscmdiv_f.h"
+#include"test_scp_simple/rscmmul_d.h"
+#include"test_scp_simple/rscmmul_f.h"
+#include"test_scp_simple/rscmsub_d.h"
+#include"test_scp_simple/rscmsub_f.h"
+#include"test_scp_simple/rscvadd_d.h"
+#include"test_scp_simple/rscvadd_f.h"
+#include"test_scp_simple/rscvdiv_d.h"
+#include"test_scp_simple/rscvdiv_f.h"
+#include"test_scp_simple/rvcmmul_d.h"
+#include"test_scp_simple/rvcmmul_f.h"
+#include"test_scp_simple/smadd_d.h"
+#include"test_scp_simple/smadd_f.h"
+#include"test_scp_simple/smdiv_d.h"
+#include"test_scp_simple/smdiv_f.h"
+#include"test_scp_simple/smmul_d.h"
+#include"test_scp_simple/smmul_f.h"
+#include"test_scp_simple/smsub_d.h"
+#include"test_scp_simple/smsub_f.h"
+#include"test_scp_simple/svadd_d.h"
+#include"test_scp_simple/svadd_f.h"
+#include"test_scp_simple/svmul_d.h"
+#include"test_scp_simple/svmul_f.h"
+#include"test_scp_simple/vacos_d.h"
+#include"test_scp_simple/vacos_f.h"
+#include"test_scp_simple/vadd_d.h"
+#include"test_scp_simple/vadd_f.h"
+#include"test_scp_simple/valltrue_bl.h"
+#include"test_scp_simple/vam_d.h"
+#include"test_scp_simple/vam_f.h"
+#include"test_scp_simple/vanytrue_bl.h"
+#include"test_scp_simple/varg_d.h"
+#include"test_scp_simple/varg_f.h"
+#include"test_scp_simple/vasin_d.h"
+#include"test_scp_simple/vasin_f.h"
+#include"test_scp_simple/vatan2_d.h"
+#include"test_scp_simple/vatan2_f.h"
+#include"test_scp_simple/vatan_d.h"
+#include"test_scp_simple/vatan_f.h"
+#include"test_scp_simple/vclip_d.h"
+#include"test_scp_simple/vclip_f.h"
+#include"test_scp_simple/vcmaxmgsq_d.h"
+#include"test_scp_simple/vcmaxmgsq_f.h"
+#include"test_scp_simple/vcminmgsqval_d.h"
+#include"test_scp_simple/vcminmgsqval_f.h"
+#include"test_scp_simple/vcmplx_d.h"
+#include"test_scp_simple/vcmplx_f.h"
+#include"test_scp_simple/vcos_d.h"
+#include"test_scp_simple/vcos_f.h"
+#include"test_scp_simple/vcosh_d.h"
+#include"test_scp_simple/vcosh_f.h"
+#include"test_scp_simple/vdiv_d.h"
+#include"test_scp_simple/vdiv_f.h"
+#include"test_scp_simple/vdot_d.h"
+#include"test_scp_simple/vdot_f.h"
+#include"test_scp_simple/veuler_d.h"
+#include"test_scp_simple/veuler_f.h"
+#include"test_scp_simple/vexp_d.h"
+#include"test_scp_simple/vexp_f.h"
+#include"test_scp_simple/vexpoavg_d.h"
+#include"test_scp_simple/vexpoavg_f.h"
+#include"test_scp_simple/vfill_d.h"
+#include"test_scp_simple/vfill_f.h"
+#include"test_scp_simple/vgather_d.h"
+#include"test_scp_simple/vgather_f.h"
+#include"test_scp_simple/vhisto_d.h"
+#include"test_scp_simple/vhisto_f.h"
+#include"test_scp_simple/vhypot_d.h"
+#include"test_scp_simple/vhypot_f.h"
+#include"test_scp_simple/vimag_d.h"
+#include"test_scp_simple/vimag_f.h"
+#include"test_scp_simple/vinvclip_d.h"
+#include"test_scp_simple/vinvclip_f.h"
+#include"test_scp_simple/vleq_d.h"
+#include"test_scp_simple/vleq_f.h"
+#include"test_scp_simple/vlge_d.h"
+#include"test_scp_simple/vlge_f.h"
+#include"test_scp_simple/vlgt_d.h"
+#include"test_scp_simple/vlgt_f.h"
+#include"test_scp_simple/vlle_d.h"
+#include"test_scp_simple/vlle_f.h"
+#include"test_scp_simple/vllt_d.h"
+#include"test_scp_simple/vllt_f.h"
+#include"test_scp_simple/vlne_d.h"
+#include"test_scp_simple/vlne_f.h"
+#include"test_scp_simple/vlog10_d.h"
+#include"test_scp_simple/vlog10_f.h"
+#include"test_scp_simple/vlog_d.h"
+#include"test_scp_simple/vlog_f.h"
+#include"test_scp_simple/vmag_d.h"
+#include"test_scp_simple/vmag_f.h"
+#include"test_scp_simple/vmax_d.h"
+#include"test_scp_simple/vmax_f.h"
+#include"test_scp_simple/vmaxmg_d.h"
+#include"test_scp_simple/vmaxmg_f.h"
+#include"test_scp_simple/vmeansqval_d.h"
+#include"test_scp_simple/vmeansqval_f.h"
+#include"test_scp_simple/vmin_d.h"
+#include"test_scp_simple/vmin_f.h"
+#include"test_scp_simple/vminmg_d.h"
+#include"test_scp_simple/vminmg_f.h"
+#include"test_scp_simple/vmmul_d.h"
+#include"test_scp_simple/vmmul_f.h"
+#include"test_scp_simple/vmodulate_d.h"
+#include"test_scp_simple/vmodulate_f.h"
+#include"test_scp_simple/vmprod_d.h"
+#include"test_scp_simple/vmprod_f.h"
+#include"test_scp_simple/vmsa_d.h"
+#include"test_scp_simple/vmsa_f.h"
+#include"test_scp_simple/vmul_d.h"
+#include"test_scp_simple/vmul_f.h"
+#include"test_scp_simple/vneg_d.h"
+#include"test_scp_simple/vneg_f.h"
+#include"test_scp_simple/vnot_bl.h"
+#include"test_scp_simple/vouter_d.h"
+#include"test_scp_simple/vouter_f.h"
+#include"test_scp_simple/vpolar_d.h"
+#include"test_scp_simple/vpolar_f.h"
+#include"test_scp_simple/vramp_d.h"
+#include"test_scp_simple/vramp_f.h"
+#include"test_scp_simple/vreal_d.h"
+#include"test_scp_simple/vreal_f.h"
+#include"test_scp_simple/vrecip_d.h"
+#include"test_scp_simple/vrecip_f.h"
+#include"test_scp_simple/vrect_d.h"
+#include"test_scp_simple/vrect_f.h"
+#include"test_scp_simple/vsam_d.h"
+#include"test_scp_simple/vsam_f.h"
+#include"test_scp_simple/vscatter_d.h"
+#include"test_scp_simple/vscatter_f.h"
+#include"test_scp_simple/vsdiv_d.h"
+#include"test_scp_simple/vsdiv_f.h"
+#include"test_scp_simple/vsin_d.h"
+#include"test_scp_simple/vsin_f.h"
+#include"test_scp_simple/vsinh_d.h"
+#include"test_scp_simple/vsinh_f.h"
+#include"test_scp_simple/vsma_d.h"
+#include"test_scp_simple/vsma_f.h"
+#include"test_scp_simple/vsub_d.h"
+#include"test_scp_simple/vsub_f.h"
+#include"test_scp_simple/vsumval_bl.h"
+#include"test_scp_simple/vsumval_d.h"
+#include"test_scp_simple/vsumval_f.h"
+#include"test_scp_simple/vtan_d.h"
+#include"test_scp_simple/vtan_f.h"
+#include"test_scp_simple/vtanh_d.h"
+#include"test_scp_simple/vtanh_f.h"
+#include"test_scp_simple/cmkron_d.h"
+#include"test_scp_simple/cmkron_f.h"
+#include"test_scp_simple/cvkron_d.h"
+#include"test_scp_simple/cvkron_f.h"
+#include"test_scp_simple/mkron_d.h"
+#include"test_scp_simple/mkron_f.h"
+#include"test_scp_simple/vkron_d.h"
+#include"test_scp_simple/vkron_f.h"
+#include"test_scp_simple/vfirst_i.h"
+#include"test_scp_simple/vfirst_f.h"
+#include"test_scp_simple/vfirst_d.h"
+#include"test_scp_simple/vfirst_vi.h"
+#include"test_scp_support/cmcloneview_d.h"
+#include"test_scp_support/cmcloneview_f.h"
+#include"test_scp_support/cmget_put_d.h"
+#include"test_scp_support/cmget_put_f.h"
+#include"test_scp_support/cmrealimagview_d.h"
+#include"test_scp_support/cmrealimagview_f.h"
+#include"test_scp_support/cmsubview_d.h"
+#include"test_scp_support/cmsubview_f.h"
+#include"test_scp_support/cmtransview_d.h"
+#include"test_scp_support/cmtransview_f.h"
+#include"test_scp_support/crow_col_view_d.h"
+#include"test_scp_support/crow_col_view_f.h"
+#include"test_scp_support/ctcloneview_d.h"
+#include"test_scp_support/ctcloneview_f.h"
+#include"test_scp_support/ctget_put_d.h"
+#include"test_scp_support/ctget_put_f.h"
+#include"test_scp_support/ctmisc_view_d.h"
+#include"test_scp_support/ctmisc_view_f.h"
+#include"test_scp_support/ctrealimagview_d.h"
+#include"test_scp_support/ctrealimagview_f.h"
+#include"test_scp_support/ctsubview_d.h"
+#include"test_scp_support/ctsubview_f.h"
+#include"test_scp_support/cvcloneview_d.h"
+#include"test_scp_support/cvcloneview_f.h"
+#include"test_scp_support/cvget_put_d.h"
+#include"test_scp_support/cvget_put_f.h"
+#include"test_scp_support/cvrealimagview_d.h"
+#include"test_scp_support/cvrealimagview_f.h"
+#include"test_scp_support/cvsubview_d.h"
+#include"test_scp_support/cvsubview_f.h"
+#include"test_scp_support/get_put_attrib_bl.h"
+#include"test_scp_support/get_put_attrib_d.h"
+#include"test_scp_support/get_put_attrib_f.h"
+#include"test_scp_support/get_put_attrib_i.h"
+#include"test_scp_support/get_put_attrib_mi.h"
+#include"test_scp_support/get_put_attrib_si.h"
+#include"test_scp_support/get_put_attrib_vi.h"
+#include"test_scp_support/get_put_length_bl.h"
+#include"test_scp_support/get_put_length_d.h"
+#include"test_scp_support/get_put_length_f.h"
+#include"test_scp_support/get_put_length_i.h"
+#include"test_scp_support/get_put_length_mi.h"
+#include"test_scp_support/get_put_length_si.h"
+#include"test_scp_support/get_put_length_vi.h"
+#include"test_scp_support/get_put_offset_bl.h"
+#include"test_scp_support/get_put_offset_d.h"
+#include"test_scp_support/get_put_offset_f.h"
+#include"test_scp_support/get_put_offset_i.h"
+#include"test_scp_support/get_put_offset_mi.h"
+#include"test_scp_support/get_put_offset_si.h"
+#include"test_scp_support/get_put_offset_vi.h"
+#include"test_scp_support/get_put_stride_bl.h"
+#include"test_scp_support/get_put_stride_d.h"
+#include"test_scp_support/get_put_stride_f.h"
+#include"test_scp_support/get_put_stride_i.h"
+#include"test_scp_support/get_put_stride_mi.h"
+#include"test_scp_support/get_put_stride_si.h"
+#include"test_scp_support/get_put_stride_vi.h"
+#include"test_scp_support/mcloneview_bl.h"
+#include"test_scp_support/mcloneview_d.h"
+#include"test_scp_support/mcloneview_f.h"
+#include"test_scp_support/mcloneview_i.h"
+#include"test_scp_support/mcloneview_si.h"
+#include"test_scp_support/mget_put_bl.h"
+#include"test_scp_support/mget_put_d.h"
+#include"test_scp_support/mget_put_f.h"
+#include"test_scp_support/mget_put_i.h"
+#include"test_scp_support/mget_put_si.h"
+#include"test_scp_support/msubview_bl.h"
+#include"test_scp_support/msubview_d.h"
+#include"test_scp_support/msubview_f.h"
+#include"test_scp_support/msubview_i.h"
+#include"test_scp_support/msubview_si.h"
+#include"test_scp_support/mtransview_bl.h"
+#include"test_scp_support/mtransview_d.h"
+#include"test_scp_support/mtransview_f.h"
+#include"test_scp_support/mtransview_i.h"
+#include"test_scp_support/mtransview_si.h"
+#include"test_scp_support/row_col_view_bl.h"
+#include"test_scp_support/row_col_view_d.h"
+#include"test_scp_support/row_col_view_f.h"
+#include"test_scp_support/row_col_view_i.h"
+#include"test_scp_support/row_col_view_si.h"
+#include"test_scp_support/tcloneview_d.h"
+#include"test_scp_support/tcloneview_f.h"
+#include"test_scp_support/tcloneview_i.h"
+#include"test_scp_support/tcloneview_si.h"
+#include"test_scp_support/tget_put_d.h"
+#include"test_scp_support/tget_put_f.h"
+#include"test_scp_support/tget_put_i.h"
+#include"test_scp_support/tget_put_si.h"
+#include"test_scp_support/tmisc_view_d.h"
+#include"test_scp_support/tmisc_view_f.h"
+#include"test_scp_support/tmisc_view_i.h"
+#include"test_scp_support/tmisc_view_si.h"
+#include"test_scp_support/tsubview_d.h"
+#include"test_scp_support/tsubview_f.h"
+#include"test_scp_support/tsubview_i.h"
+#include"test_scp_support/tsubview_si.h"
+#include"test_scp_support/vcloneview_bl.h"
+#include"test_scp_support/vcloneview_d.h"
+#include"test_scp_support/vcloneview_f.h"
+#include"test_scp_support/vcloneview_i.h"
+#include"test_scp_support/vcloneview_mi.h"
+#include"test_scp_support/vcloneview_si.h"
+#include"test_scp_support/vcloneview_vi.h"
+#include"test_scp_support/vget_put_bl.h"
+#include"test_scp_support/vget_put_d.h"
+#include"test_scp_support/vget_put_f.h"
+#include"test_scp_support/vget_put_i.h"
+#include"test_scp_support/vget_put_mi.h"
+#include"test_scp_support/vget_put_si.h"
+#include"test_scp_support/vget_put_vi.h"
+#include"test_scp_support/vsubview_bl.h"
+#include"test_scp_support/vsubview_d.h"
+#include"test_scp_support/vsubview_f.h"
+#include"test_scp_support/vsubview_i.h"
+#include"test_scp_support/vsubview_mi.h"
+#include"test_scp_support/vsubview_si.h"
+#include"test_scp_support/vsubview_vi.h"
+#include"test_scp_simple/cmprod3_d.h"
+#include"test_scp_simple/mprod3_d.h"
+#include"test_scp_simple/cmvprod3_d.h" 
+#include"test_scp_simple/mvprod4_d.h" 
+#include"test_scp_simple/mprod4_d.h" 
+#include"test_scp_simple/cmprod4_d.h"
+#include"test_scp_simple/mvprod3_d.h" 
+#include"test_scp_simple/mprod3_f.h" 
+#include"test_scp_simple/mvprod4_f.h" 
+#include"test_scp_simple/cmprod3_f.h" 
+#include"test_scp_simple/mvprod3_f.h" 
+#include"test_scp_simple/cmprod4_f.h" 
+#include"test_scp_simple/mprod4_f.h"
+#include"test_scp_simple/cmvprod3_f.h"
+#include"test_scp_simple/cmvprod4_f.h"
+
+int main(){
+  vsip_init((void*)0);
+  vcopyfrom_user_d();
+  vcopyfrom_user_f();
+  vcopyto_user_d();
+  vcopyto_user_f();
+  cvcopyfrom_user_d();
+  cvcopyfrom_user_f();
+  cvcopyto_user_d();
+  cvcopyto_user_f();
+  mcopyfrom_user_d();
+  mcopyfrom_user_f();
+  mcopyto_user_d();
+  mcopyto_user_f();
+  cmcopyfrom_user_d();
+  cmcopyfrom_user_f();
+  cmcopyto_user_d();
+  cmcopyto_user_f();
+  cblock_admit_release_d();
+  cblock_admit_release_f();
+  ccfftip_d();
+  ccfftip_f();
+  ccfftop_d();
+  ccfftop_f();
+  ccfftop_sc_d();
+  ccfftop_sc_f();
+  crfftop_d();
+  crfftop_f();
+  iccfftip_d();
+  iccfftip_f();
+  iccfftop_d();
+  iccfftop_f();
+  rcfftop_d();
+  rcfftop_f();
+  cfir_N201_D2_d();
+  cfir_N201_D2_f();
+  cfir_N201_D3_d();
+  cfir_N201_D3_f();
+  firE_n3_N67_D2_d();
+  firE_n3_N67_D2_f();
+  firO_n3_N67_D3_d();
+  firO_n3_N67_D3_f();
+  fir_N200_D1_d();
+  fir_N200_D1_f();
+  fir_N201_D1_NS_d();
+  fir_N201_D1_NS_f();
+  fir_N201_D1_NS_sc_d();
+  fir_N201_D1_NS_sc_f();
+  fir_N201_D1_d();
+  fir_N201_D1_f();
+  fir_N201_D2_NS_d();
+  fir_N201_D2_NS_f();
+  fir_N201_D2_NS_sc_d();
+  fir_N201_D2_NS_sc_f();
+  fir_N201_D2_d();
+  fir_N201_D2_f();
+  fir_N201_D3_NS_d();
+  fir_N201_D3_NS_f();
+  fir_N201_D3_d();
+  fir_N201_D3_f();
+  fir_N201_D3_sc_d();
+  fir_N201_D3_sc_f();
+  fir_n3_N67_D1_d();
+  fir_n3_N67_D1_f();
+  fir_n3_N67_D2_d();
+  fir_n3_N67_D2_f();
+  fir_n3_N67_D3_NS_d();
+  fir_n3_N67_D3_NS_f();
+  fir_n3_N67_D3_d();
+  fir_n3_N67_D3_f();
+  acos_d();
+  acos_f();
+  arg_d();
+  arg_f();
+  asin_d();
+  asin_f();
+  atan2_d();
+  atan2_f();
+  atan_d();
+  atan_f();
+  cadd_d();
+  cadd_f();
+  cdiv_d();
+  cdiv_f();
+  ceil_d();
+  ceil_f();
+  cexp_d();
+  cexp_f();
+  cjmul_d();
+  cjmul_f();
+  clog_d();
+  clog_f();
+  cmag_d();
+  cmag_f();
+  cmagsq_d();
+  cmagsq_f();
+  cmplx_d();
+  cmplx_f();
+  cmul_d();
+  cmul_f();
+  cneg_d();
+  cneg_f();
+  conj_d();
+  conj_f();
+  cos_d();
+  cos_f();
+  cosh_d();
+  cosh_f();
+  crecip_d();
+  crecip_f();
+  csqrt_d();
+  csqrt_f();
+  csub_d();
+  csub_f();
+  exp10_d();
+  exp10_f();
+  exp_d();
+  exp_f();
+  floor_d();
+  floor_f();
+  fmod_d();
+  fmod_f();
+  hypot_d();
+  hypot_f();
+  imag_d();
+  imag_f();
+  log10_d();
+  log10_f();
+  log_d();
+  log_f();
+  mag_d();
+  mag_f();
+  matindex();
+  max_d();
+  max_f();
+  mcolindex();
+  min_d();
+  min_f();
+  mrowindex();
+  polar_d();
+  polar_f();
+  pow_d();
+  pow_f();
+  real_f();
+  rect_d();
+  rect_f();
+  rsqrt_d();
+  rsqrt_f();
+  sin_d();
+  sin_f();
+  sinh_d();
+  sinh_f();
+  sqrt_d();
+  sqrt_f();
+  tan_d();
+  tan_f();
+  tanh_d();
+  tanh_f();
+  cgemp_d();
+  cgemp_f();
+  cgems_d();
+  cgems_f();
+  cmadd_d();
+  cmadd_f();
+  cmconj_d();
+  cmconj_f();
+  cmdiv_d();
+  cmdiv_f();
+  cmexp_d();
+  cmexp_f();
+  cmexpoavg_d();
+  cmexpoavg_f();
+  cmfill_d();
+  cmfill_f();
+  cmgather_d();
+  cmgather_f();
+  cmherm_d();
+  cmherm_f();
+  cmjmul_d();
+  cmjmul_f();
+  cmlog_d();
+  cmlog_f();
+  cmmag_d();
+  cmmag_f();
+  cmmeansqval_d();
+  cmmeansqval_f();
+  cmmeanval_d();
+  cmmeanval_f();
+  cmmul_d();
+  cmmul_f();
+  cmneg_d();
+  cmneg_f();
+  cmprod_d();
+  cmprod_f();
+  cmprodh_d();
+  cmprodh_f();
+  cmprodj_d();
+  cmprodj_f();
+  cmprodt_d();
+  cmprodt_f();
+  cmrecip_d();
+  cmrecip_f();
+  cmrsdiv_d();
+  cmrsdiv_f();
+  cmscatter_d();
+  cmscatter_f();
+  cmsqrt_d();
+  cmsqrt_f();
+  cmsub_d();
+  cmsub_f();
+  cmswap_d();
+  cmswap_f();
+  cmtrans_d();
+  cmtrans_f();
+  cmvprod_d();
+  cmvprod_f();
+  crmdiv_d();
+  crmdiv_f();
+  crmsub_d();
+  crmsub_f();
+  crvdiv_d();
+  crvdiv_f();
+  crvsub_d();
+  crvsub_f();
+  csmadd_d();
+  csmadd_f();
+  csmdiv_d();
+  csmdiv_f();
+  csmmul_d();
+  csmmul_f();
+  csmsub_d();
+  csmsub_f();
+  csvadd_d();
+  csvadd_f();
+  csvdiv_d();
+  csvdiv_f();
+  csvmul_d();
+  csvmul_f();
+  cvadd_d();
+  cvadd_f();
+  cvam_d();
+  cvam_f();
+  cvconj_d();
+  cvconj_f();
+  cvdiv_d();
+  cvdiv_f();
+  cvdot_d();
+  cvdot_f();
+  cvexp_d();
+  cvexp_f();
+  cvexpoavg_d();
+  cvexpoavg_f();
+  cvfill_d();
+  cvfill_f();
+  cvgather_d();
+  cvgather_f();
+  cvjdot_d();
+  cvjdot_f();
+  cvjmul_d();
+  cvjmul_f();
+  cvlog_d();
+  cvlog_f();
+  cvmag_d();
+  cvmag_f();
+  cvmeansqval_d();
+  cvmeansqval_f();
+  cvmmul_d();
+  cvmmul_f();
+  cvmprod_d();
+  cvmprod_f();
+  cvmsa_d();
+  cvmsa_f();
+  cvmul_d();
+  cvmul_f();
+  cvneg_d();
+  cvneg_f();
+  cvouter_d();
+  cvouter_f();
+  cvrsdiv_d();
+  cvrsdiv_f();
+  cvsam_d();
+  cvsam_f();
+  cvscatter_d();
+  cvscatter_f();
+  cvsma_d();
+  cvsma_f();
+  cvsub_d();
+  cvsub_f();
+  cvswap_d();
+  cvswap_f();
+  gemp_d();
+  gemp_f();
+  gems_d();
+  gems_f();
+  macos_d();
+  macos_f();
+  madd_d();
+  madd_f();
+  malltrue_bl();
+  manytrue_bl();
+  marg_d();
+  marg_f();
+  masin_d();
+  masin_f();
+  matan2_d();
+  matan2_f();
+  matan_d();
+  matan_f();
+  mclip_d();
+  mclip_f();
+  mcmagsq_d();
+  mcmagsq_f();
+  mcmaxmgsq_d();
+  mcmaxmgsq_f();
+  mcmaxmgsqval_d();
+  mcmaxmgsqval_f();
+  mcminmgsq_d();
+  mcminmgsq_f();
+  mcminmgsqval_d();
+  mcminmgsqval_f();
+  mcos_d();
+  mcos_f();
+  mcosh_d();
+  mcosh_f();
+  mdiv_d();
+  mdiv_f();
+  meuler_d();
+  meuler_f();
+  mexp10_d();
+  mexp10_f();
+  mexp_d();
+  mexp_f();
+  mexpoavg_d();
+  mexpoavg_f();
+  mfill_d();
+  mfill_f();
+  mgather_d();
+  mgather_f();
+  mhypot_d();
+  mhypot_f();
+  mindexbool();
+  minvclip_d();
+  minvclip_f();
+  mleq_d();
+  mleq_f();
+  mlge_d();
+  mlge_f();
+  mlgt_d();
+  mlgt_f();
+  mlle_d();
+  mlle_f();
+  mllt_d();
+  mllt_f();
+  mlne_d();
+  mlne_f();
+  mlog10_d();
+  mlog10_f();
+  mlog_d();
+  mlog_f();
+  mmag_d();
+  mmag_f();
+  mmax_d();
+  mmax_f();
+  mmaxmg_d();
+  mmaxmg_f();
+  mmaxmgval_d();
+  mmaxmgval_f();
+  mmaxval_d();
+  mmaxval_f();
+  mmeansqval_d();
+  mmeansqval_f();
+  mmeanval_d();
+  mmeanval_f();
+  mmin_d();
+  mmin_f();
+  mminmg_d();
+  mminmg_f();
+  mminmgval_d();
+  mminmgval_f();
+  mminval_d();
+  mminval_f();
+  mmul_d();
+  mmul_f();
+  mneg_d();
+  mneg_f();
+  mprod_d();
+  mprod_f();
+  mprodt_d();
+  mprodt_f();
+  mrecip_d();
+  mrecip_f();
+  mrsqrt_d();
+  mrsqrt_f();
+  mscatter_d();
+  mscatter_f();
+  msdiv_d();
+  msdiv_f();
+  msin_d();
+  msin_f();
+  msinh_d();
+  msinh_f();
+  msq_d();
+  msq_f();
+  msqrt_d();
+  msqrt_f();
+  msub_d();
+  msub_f();
+  msumsqval_d();
+  msumsqval_f();
+  msumval_bl();
+  msumval_d();
+  msumval_f();
+  mswap_d();
+  mswap_f();
+  mtan_d();
+  mtan_f();
+  mtanh_d();
+  mtanh_f();
+  mtrans_d();
+  mtrans_f();
+  mvprod_d();
+  mvprod_f();
+  rcmadd_d();
+  rcmadd_f();
+  rcmdiv_d();
+  rcmdiv_f();
+  rcmmul_d();
+  rcmmul_f();
+  rcmsub_d();
+  rcmsub_f();
+  rcvadd_d();
+  rcvadd_f();
+  rcvdiv_d();
+  rcvdiv_f();
+  rcvmul_d();
+  rcvmul_f();
+  rcvsub_d();
+  rcvsub_f();
+  rscmadd_d();
+  rscmadd_f();
+  rscmdiv_d();
+  rscmdiv_f();
+  rscmmul_d();
+  rscmmul_f();
+  rscmsub_d();
+  rscmsub_f();
+  rscvadd_d();
+  rscvadd_f();
+  rscvdiv_d();
+  rscvdiv_f();
+  rvcmmul_d();
+  rvcmmul_f();
+  smadd_d();
+  smadd_f();
+  smdiv_d();
+  smdiv_f();
+  smmul_d();
+  smmul_f();
+  smsub_d();
+  smsub_f();
+  svadd_d();
+  svadd_f();
+  svmul_d();
+  svmul_f();
+  vacos_d();
+  vacos_f();
+  vadd_d();
+  vadd_f();
+  valltrue_bl();
+  vam_d();
+  vam_f();
+  vanytrue_bl();
+  varg_d();
+  varg_f();
+  vasin_d();
+  vasin_f();
+  vatan2_d();
+  vatan2_f();
+  vatan_d();
+  vatan_f();
+  vclip_d();
+  vclip_f();
+  vcmaxmgsq_d();
+  vcmaxmgsq_f();
+  vcminmgsqval_d();
+  vcminmgsqval_f();
+  vcmplx_d();
+  vcmplx_f();
+  vcos_d();
+  vcos_f();
+  vcosh_d();
+  vcosh_f();
+  vdiv_d();
+  vdiv_f();
+  vdot_d();
+  vdot_f();
+  veuler_d();
+  veuler_f();
+  vexp_d();
+  vexp_f();
+  vexpoavg_d();
+  vexpoavg_f();
+  vfill_d();
+  vfill_f();
+  vgather_d();
+  vgather_f();
+  vhisto_d();
+  vhisto_f();
+  vhypot_d();
+  vhypot_f();
+  vimag_d();
+  vimag_f();
+  vinvclip_d();
+  vinvclip_f();
+  vleq_d();
+  vleq_f();
+  vlge_d();
+  vlge_f();
+  vlgt_d();
+  vlgt_f();
+  vlle_d();
+  vlle_f();
+  vllt_d();
+  vllt_f();
+  vlne_d();
+  vlne_f();
+  vlog10_d();
+  vlog10_f();
+  vlog_d();
+  vlog_f();
+  vmag_d();
+  vmag_f();
+  vmax_d();
+  vmax_f();
+  vmaxmg_d();
+  vmaxmg_f();
+  vmeansqval_d();
+  vmeansqval_f();
+  vmin_d();
+  vmin_f();
+  vminmg_d();
+  vminmg_f();
+  vmmul_d();
+  vmmul_f();
+  vmodulate_d();
+  vmodulate_f();
+  vmprod_d();
+  vmprod_f();
+  vmsa_d();
+  vmsa_f();
+  vmul_d();
+  vmul_f();
+  vneg_d();
+  vneg_f();
+  vnot_bl();
+  vouter_d();
+  vouter_f();
+  vpolar_d();
+  vpolar_f();
+  vramp_d();
+  vramp_f();
+  vreal_d();
+  vreal_f();
+  vrecip_d();
+  vrecip_f();
+  vrect_d();
+  vrect_f();
+  vsam_d();
+  vsam_f();
+  vscatter_d();
+  vscatter_f();
+  vsdiv_d();
+  vsdiv_f();
+  vsin_d();
+  vsin_f();
+  vsinh_d();
+  vsinh_f();
+  vsma_d();
+  vsma_f();
+  vsub_d();
+  vsub_f();
+  vsumval_bl();
+  vsumval_d();
+  vsumval_f();
+  vtan_d();
+  vtan_f();
+  vtanh_d();
+  vtanh_f();
+  cmcloneview_d();
+  cmcloneview_f();
+  cmget_put_d();
+  cmget_put_f();
+  cmrealimagview_d();
+  cmrealimagview_f();
+  cmsubview_d();
+  cmsubview_f();
+  cmtransview_d();
+  cmtransview_f();
+  crow_col_view_d();
+  crow_col_view_f();
+  ctcloneview_d();
+  ctcloneview_f();
+  ctget_put_d();
+  ctget_put_f();
+  ctmisc_view_d();
+  ctmisc_view_f();
+  ctrealimagview_d();
+  ctrealimagview_f();
+  ctsubview_d();
+  ctsubview_f();
+  cvcloneview_d();
+  cvcloneview_f();
+  cvget_put_d();
+  cvget_put_f();
+  cvrealimagview_d();
+  cvrealimagview_f();
+  cvsubview_d();
+  cvsubview_f();
+  get_put_attrib_bl();
+  get_put_attrib_d();
+  get_put_attrib_f();
+  get_put_attrib_i();
+  get_put_attrib_mi();
+  get_put_attrib_si();
+  get_put_attrib_vi();
+  get_put_length_bl();
+  get_put_length_d();
+  get_put_length_f();
+  get_put_length_i();
+  get_put_length_mi();
+  get_put_length_si();
+  get_put_length_vi();
+  get_put_offset_bl();
+  get_put_offset_d();
+  get_put_offset_f();
+  get_put_offset_i();
+  get_put_offset_mi();
+  get_put_offset_si();
+  get_put_offset_vi();
+  get_put_stride_bl();
+  get_put_stride_d();
+  get_put_stride_f();
+  get_put_stride_i();
+  get_put_stride_mi();
+  get_put_stride_si();
+  get_put_stride_vi();
+  mcloneview_bl();
+  mcloneview_d();
+  mcloneview_f();
+  mcloneview_i();
+  mcloneview_si();
+  mget_put_bl();
+  mget_put_d();
+  mget_put_f();
+  mget_put_i();
+  mget_put_si();
+  msubview_bl();
+  msubview_d();
+  msubview_f();
+  msubview_i();
+  msubview_si();
+  mtransview_bl();
+  mtransview_d();
+  mtransview_f();
+  mtransview_i();
+  mtransview_si();
+  row_col_view_bl();
+  row_col_view_d();
+  row_col_view_f();
+  row_col_view_i();
+  row_col_view_si();
+  tcloneview_d();
+  tcloneview_f();
+  tcloneview_i();
+  tcloneview_si();
+  tget_put_d();
+  tget_put_f();
+  tget_put_i();
+  tget_put_si();
+  tmisc_view_d();
+  tmisc_view_f();
+  tmisc_view_i();
+  tmisc_view_si();
+  tsubview_d();
+  tsubview_f();
+  tsubview_i();
+  tsubview_si();
+  vcloneview_bl();
+  vcloneview_d();
+  vcloneview_f();
+  vcloneview_i();
+  vcloneview_mi();
+  vcloneview_si();
+  vcloneview_vi();
+  vget_put_bl();
+  vget_put_d();
+  vget_put_f();
+  vget_put_i();
+  vget_put_mi();
+  vget_put_si();
+  vget_put_vi();
+  vsubview_bl();
+  vsubview_d();
+  vsubview_f();
+  vsubview_i();
+  vsubview_mi();
+  vsubview_si();
+  vsubview_vi();
+  cmkron_d();
+  cmkron_f();
+  cvkron_d();
+  cvkron_f();
+  mkron_d();
+  mkron_f();
+  vkron_d();
+  vkron_f();
+  vfirst_i();
+  vfirst_f();
+  vfirst_d();
+  vfirst_vi();
+  get_put_attrib_uc();
+  get_put_length_uc();
+  get_put_offset_uc();
+  get_put_stride_uc();
+  mcloneview_uc();
+  mget_put_uc();
+  msubview_uc();
+  mtransview_uc();
+  row_col_view_uc();
+  tcloneview_uc();
+  tget_put_uc();
+  tmisc_view_uc();
+  tsubview_uc();
+  vcloneview_uc();
+  vget_put_uc();
+  vsubview_uc();
+  cmprod3_d();
+  mprod3_d();
+  cmvprod3_d(); 
+  mvprod4_d(); 
+  mprod4_d(); 
+  cmprod4_d();
+  mvprod4_d(); 
+  mvprod3_d(); 
+  mprod3_f(); 
+  mvprod4_f(); 
+  cmprod3_f(); 
+  mvprod3_f(); 
+  cmprod4_f(); 
+  mprod4_f();
+  cmvprod3_f();
+  cmvprod4_f();
+  vsip_finalize((void*)0);
+  return 0;
+}

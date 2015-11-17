@@ -1,0 +1,187 @@
+#include<stdio.h>
+#include<string.h>
+#include<vsip.h>
+#include<VU.h>
+
+#include"acos_d.h"
+#include"acos_f.h"
+#include"arg_d.h"
+#include"arg_f.h"
+#include"asin_d.h"
+#include"asin_f.h"
+#include"atan2_d.h"
+#include"atan2_f.h"
+#include"atan_d.h"
+#include"atan_f.h"
+#include"cadd_d.h"
+#include"cadd_f.h"
+#include"cdiv_d.h"
+#include"cdiv_f.h"
+#include"ceil_d.h"
+#include"ceil_f.h"
+#include"cexp_d.h"
+#include"cexp_f.h"
+#include"cjmul_d.h"
+#include"cjmul_f.h"
+#include"clog_d.h"
+#include"clog_f.h"
+#include"cmag_d.h"
+#include"cmag_f.h"
+#include"cmagsq_d.h"
+#include"cmagsq_f.h"
+#include"cmplx_d.h"
+#include"cmplx_f.h"
+#include"cmul_d.h"
+#include"cmul_f.h"
+#include"cneg_d.h"
+#include"cneg_f.h"
+#include"conj_d.h"
+#include"conj_f.h"
+#include"cos_d.h"
+#include"cos_f.h"
+#include"cosh_d.h"
+#include"cosh_f.h"
+#include"crecip_d.h"
+#include"crecip_f.h"
+#include"csqrt_d.h"
+#include"csqrt_f.h"
+#include"csub_d.h"
+#include"csub_f.h"
+#include"exp10_d.h"
+#include"exp10_f.h"
+#include"exp_d.h"
+#include"exp_f.h"
+#include"floor_d.h"
+#include"floor_f.h"
+#include"fmod_d.h"
+#include"fmod_f.h"
+#include"hypot_d.h"
+#include"hypot_f.h"
+#include"imag_d.h"
+#include"imag_f.h"
+#include"log10_d.h"
+#include"log10_f.h"
+#include"log_d.h"
+#include"log_f.h"
+#include"mag_d.h"
+#include"mag_f.h"
+#include"matindex.h"
+#include"max_d.h"
+#include"max_f.h"
+#include"mcolindex.h"
+#include"min_d.h"
+#include"min_f.h"
+#include"mrowindex.h"
+#include"polar_d.h"
+#include"polar_f.h"
+#include"pow_d.h"
+#include"pow_f.h"
+#include"real_f.h"
+#include"rect_d.h"
+#include"rect_f.h"
+#include"rsqrt_d.h"
+#include"rsqrt_f.h"
+#include"sin_d.h"
+#include"sin_f.h"
+#include"sinh_d.h"
+#include"sinh_f.h"
+#include"sqrt_d.h"
+#include"sqrt_f.h"
+#include"tan_d.h"
+#include"tan_f.h"
+#include"tanh_d.h"
+#include"tanh_f.h"
+
+int main(){
+  vsip_init((void*)0);
+  acos_d();
+  acos_f();
+  arg_d();
+  arg_f();
+  asin_d();
+  asin_f();
+  atan2_d();
+  atan2_f();
+  atan_d();
+  atan_f();
+  cadd_d();
+  cadd_f();
+  cdiv_d();
+  cdiv_f();
+  ceil_d();
+  ceil_f();
+  cexp_d();
+  cexp_f();
+  cjmul_d();
+  cjmul_f();
+  clog_d();
+  clog_f();
+  cmag_d();
+  cmag_f();
+  cmagsq_d();
+  cmagsq_f();
+  cmplx_d();
+  cmplx_f();
+  cmul_d();
+  cmul_f();
+  cneg_d();
+  cneg_f();
+  conj_d();
+  conj_f();
+  cos_d();
+  cos_f();
+  cosh_d();
+  cosh_f();
+  crecip_d();
+  crecip_f();
+  csqrt_d();
+  csqrt_f();
+  csub_d();
+  csub_f();
+  exp10_d();
+  exp10_f();
+  exp_d();
+  exp_f();
+  floor_d();
+  floor_f();
+  fmod_d();
+  fmod_f();
+  hypot_d();
+  hypot_f();
+  imag_d();
+  imag_f();
+  log10_d();
+  log10_f();
+  log_d();
+  log_f();
+  mag_d();
+  mag_f();
+  matindex();
+  max_d();
+  max_f();
+  mcolindex();
+  min_d();
+  min_f();
+  mrowindex();
+  polar_d();
+  polar_f();
+  pow_d();
+  pow_f();
+  real_f();
+  rect_d();
+  rect_f();
+  rsqrt_d();
+  rsqrt_f();
+  sin_d();
+  sin_f();
+  sinh_d();
+  sinh_f();
+  sqrt_d();
+  sqrt_f();
+  tan_d();
+  tan_f();
+  tanh_d();
+  tanh_f();
+  vsip_finalize((void*)0);
+  return 0;
+}

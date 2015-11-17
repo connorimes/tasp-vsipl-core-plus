@@ -1,0 +1,27 @@
+# set terminal postscript eps color
+set title "Input Data"
+set ylabel "Magnitude"
+set xlabel "Time (seconds)"
+# set size 1.0,0.5
+# set output "Input.eps"
+pause -1
+plot "x_data" with linespoints
+set title "Reference Data"
+set ylabel "Magnitude"
+set xlabel "Time (seconds)"
+# set output "Reference.eps"
+pause -1
+plot "h_data" with linespoints
+set title "Correlation Output"
+set ylabel "Biassed Correlation"
+set xlabel "lag (seconds)"
+# set output "Correlation.eps"
+pause -1
+plot "y_full" with linespoints, "y_same", "y_min" 
+set title "Correlation Output"
+set ylabel "Unbiassed Correlation"
+set xlabel "lag (seconds)"
+# set output "CorrelationUB.eps"
+pause -1
+plot "y_full_unbiased" with linespoints
+pause -1

@@ -1,0 +1,6 @@
+These three examples do FFT's using the multiple fft function set. 
+The input is generated using the 4 Core window functions. The output
+is the FFT of the 4 core windows generated, and the inverse of this.
+The length of the generated windows is defined by the #define L statement
+at the head of the code. By runing this and piping the output to a file.m
+the input, fft, ifft may be imported into matlab by executing the file.

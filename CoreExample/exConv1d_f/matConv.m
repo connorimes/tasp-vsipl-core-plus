@@ -1,0 +1,10 @@
+c=conv(h,x);
+cF = c(1:D:end);
+first  = 1 + floor(M/2);
+length = floor((N-1)/D) + 1;
+last = first + (length - 1) * D;
+cS = c(first:D:last);
+first = M;
+length = floor((N-1)/D) - floor((M-1)/D) + 1;
+last = first + (length -1) * D;
+cM = c(first:D:last);

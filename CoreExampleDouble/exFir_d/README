@@ -1,0 +1,35 @@
+This is a very messy example.
+
+
+Filter in file [a]
+data in file [b]
+
+usage
+
+firEx <length_of_data_segment> <dec> [a] < [b]
+
+example
+firEx 10 3 filter <indata
+
+or for complex
+cfirEx 10 3 cfilter <cindata
+
+The complex filter and data files are just real complex pairs
+
+real imaginary
+real imaginary
+etcReal etcImagingary
+
+Note the <length_of_data_segment> is not the amount in the data file,
+but the length you want processed on each call to firflt.
+
+note the filter is passed as an argument giving the file name.
+
+note the input data to be filtered is at stdin
+and the output is at stdout
+
+Not well tested. core dumps if the right arguments aren't passed.
+
+Must pass a decimation factor less than the length of the filter.
+This may be a bug, although decimation factors greater than the 
+length of the filter are probably a mistake.

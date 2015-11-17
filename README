@@ -1,0 +1,36 @@
+How to compile
+Try 'make' in the top level directory. 
+If this does not work, or if you want to use FFTW as an FFT engine, 
+or have other special needs or want to work on a custom library for your
+own purposes Then:
+Read 'README_How_To_Make'
+
+NOTE: Development mode is not supported at this time 
+
+If you have had no troubles you should go to the testing directory
+to see how well the implementation runs on your platform, or go to the
+Examples directories and make a couple of examples to see how things
+work. If your having trouble let me know.
+
+A core plus manual is available with updates for the init/finalize
+functionality. It has not been extensively reviewed, and is preety
+starting to be a bit elderly; but it contains a fare number of examples.
+
+See VSIPL documents on web for the most up-to-date information.
+Note: The VSIPL API specification is complete and at version 1.2 and is
+the best, most reviewed, document for library functionality. The tutorial
+documents I have included are old and need to be redone, but I don't have time
+for this any time soon.
+
+Although the Core Plus manual may not be up to speed the implementation 
+should be compliant with the specification for the functions included. 
+If you have a problem let me know.
+
+For a (public) header file use vsip.h
+
+Note that not a great deal of new functionality added in 1.1 and 1.2 are 
+making it into the implementation and I still don't have some of the more 
+complicated 1.0 functionality like SVD and IIR and 2d FFT. But there is a 
+lot that is usable. If you don't like admit/release check out the new copyfrom_user 
+and copyto_user. I have completed the float versions of this for matrix and 
+vector both real and complex.

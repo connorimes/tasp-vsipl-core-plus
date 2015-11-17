@@ -1,0 +1,8 @@
+data = intarr(3,32896);
+openr,1,'gram_output'
+readf,1,data
+close,1
+g = data(2,*);
+g2 = reform(g,257,128)
+set_plot,'X'
+tv,g2

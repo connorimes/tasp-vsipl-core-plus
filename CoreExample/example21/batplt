@@ -1,0 +1,13 @@
+data = intarr(3,32896);
+openr,1,'gram_output'
+readf,1,data
+close,1
+g = data(2,*);
+g2 = reform(g,257,128)
+set_plot,'ps'
+device, /eps
+device, /inches, xsize = 4.7
+device, /inches, ysize = 2.45
+device, filename = 'gram.eps'
+tv,g2,.46,.25, /inches, xsize = 4.0156, ysize = 2.00
+device,/close

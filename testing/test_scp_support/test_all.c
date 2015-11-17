@@ -1,0 +1,251 @@
+#include<stdio.h>
+#include<string.h>
+#include<vsip.h>
+#include<VU.h>
+
+#include"cmcloneview_d.h"
+#include"cmcloneview_f.h"
+#include"cmget_put_d.h"
+#include"cmget_put_f.h"
+#include"cmrealimagview_d.h"
+#include"cmrealimagview_f.h"
+#include"cmsubview_d.h"
+#include"cmsubview_f.h"
+#include"cmtransview_d.h"
+#include"cmtransview_f.h"
+#include"crow_col_view_d.h"
+#include"crow_col_view_f.h"
+#include"ctcloneview_d.h"
+#include"ctcloneview_f.h"
+#include"ctget_put_d.h"
+#include"ctget_put_f.h"
+#include"ctmisc_view_d.h"
+#include"ctmisc_view_f.h"
+#include"ctrealimagview_d.h"
+#include"ctrealimagview_f.h"
+#include"ctsubview_d.h"
+#include"ctsubview_f.h"
+#include"cvcloneview_d.h"
+#include"cvcloneview_f.h"
+#include"cvget_put_d.h"
+#include"cvget_put_f.h"
+#include"cvrealimagview_d.h"
+#include"cvrealimagview_f.h"
+#include"cvsubview_d.h"
+#include"cvsubview_f.h"
+#include"get_put_attrib_bl.h"
+#include"get_put_attrib_d.h"
+#include"get_put_attrib_f.h"
+#include"get_put_attrib_i.h"
+#include"get_put_attrib_mi.h"
+#include"get_put_attrib_si.h"
+#include"get_put_attrib_vi.h"
+#include"get_put_length_bl.h"
+#include"get_put_length_d.h"
+#include"get_put_length_f.h"
+#include"get_put_length_i.h"
+#include"get_put_length_mi.h"
+#include"get_put_length_si.h"
+#include"get_put_length_vi.h"
+#include"get_put_offset_bl.h"
+#include"get_put_offset_d.h"
+#include"get_put_offset_f.h"
+#include"get_put_offset_i.h"
+#include"get_put_offset_mi.h"
+#include"get_put_offset_si.h"
+#include"get_put_offset_vi.h"
+#include"get_put_stride_bl.h"
+#include"get_put_stride_d.h"
+#include"get_put_stride_f.h"
+#include"get_put_stride_i.h"
+#include"get_put_stride_mi.h"
+#include"get_put_stride_si.h"
+#include"get_put_stride_vi.h"
+#include"mcloneview_bl.h"
+#include"mcloneview_d.h"
+#include"mcloneview_f.h"
+#include"mcloneview_i.h"
+#include"mcloneview_si.h"
+#include"mget_put_bl.h"
+#include"mget_put_d.h"
+#include"mget_put_f.h"
+#include"mget_put_i.h"
+#include"mget_put_si.h"
+#include"msubview_bl.h"
+#include"msubview_d.h"
+#include"msubview_f.h"
+#include"msubview_i.h"
+#include"msubview_si.h"
+#include"mtransview_bl.h"
+#include"mtransview_d.h"
+#include"mtransview_f.h"
+#include"mtransview_i.h"
+#include"mtransview_si.h"
+#include"row_col_view_bl.h"
+#include"row_col_view_d.h"
+#include"row_col_view_f.h"
+#include"row_col_view_i.h"
+#include"row_col_view_si.h"
+#include"tcloneview_d.h"
+#include"tcloneview_f.h"
+#include"tcloneview_i.h"
+#include"tcloneview_si.h"
+#include"tget_put_d.h"
+#include"tget_put_f.h"
+#include"tget_put_i.h"
+#include"tget_put_si.h"
+#include"tmisc_view_d.h"
+#include"tmisc_view_f.h"
+#include"tmisc_view_i.h"
+#include"tmisc_view_si.h"
+#include"tsubview_d.h"
+#include"tsubview_f.h"
+#include"tsubview_i.h"
+#include"tsubview_si.h"
+#include"vcloneview_bl.h"
+#include"vcloneview_d.h"
+#include"vcloneview_f.h"
+#include"vcloneview_i.h"
+#include"vcloneview_mi.h"
+#include"vcloneview_si.h"
+#include"vcloneview_vi.h"
+#include"vget_put_bl.h"
+#include"vget_put_d.h"
+#include"vget_put_f.h"
+#include"vget_put_i.h"
+#include"vget_put_mi.h"
+#include"vget_put_si.h"
+#include"vget_put_vi.h"
+#include"vsubview_bl.h"
+#include"vsubview_d.h"
+#include"vsubview_f.h"
+#include"vsubview_i.h"
+#include"vsubview_mi.h"
+#include"vsubview_si.h"
+#include"vsubview_vi.h"
+
+int main(){
+   vsip_init((void*)0);
+   cmcloneview_d();
+   cmcloneview_f();
+   cmget_put_d();
+   cmget_put_f();
+   cmrealimagview_d();
+   cmrealimagview_f();
+   cmsubview_d();
+   cmsubview_f();
+   cmtransview_d();
+   cmtransview_f();
+   crow_col_view_d();
+   crow_col_view_f();
+   ctcloneview_d();
+   ctcloneview_f();
+   ctget_put_d();
+   ctget_put_f();
+   ctmisc_view_d();
+   ctmisc_view_f();
+   ctrealimagview_d();
+   ctrealimagview_f();
+   ctsubview_d();
+   ctsubview_f();
+   cvcloneview_d();
+   cvcloneview_f();
+   cvget_put_d();
+   cvget_put_f();
+   cvrealimagview_d();
+   cvrealimagview_f();
+   cvsubview_d();
+   cvsubview_f();
+   get_put_attrib_bl();
+   get_put_attrib_d();
+   get_put_attrib_f();
+   get_put_attrib_i();
+   get_put_attrib_mi();
+   get_put_attrib_si();
+   get_put_attrib_vi();
+   get_put_length_bl();
+   get_put_length_d();
+   get_put_length_f();
+   get_put_length_i();
+   get_put_length_mi();
+   get_put_length_si();
+   get_put_length_vi();
+   get_put_offset_bl();
+   get_put_offset_d();
+   get_put_offset_f();
+   get_put_offset_i();
+   get_put_offset_mi();
+   get_put_offset_si();
+   get_put_offset_vi();
+   get_put_stride_bl();
+   get_put_stride_d();
+   get_put_stride_f();
+   get_put_stride_i();
+   get_put_stride_mi();
+   get_put_stride_si();
+   get_put_stride_vi();
+   mcloneview_bl();
+   mcloneview_d();
+   mcloneview_f();
+   mcloneview_i();
+   mcloneview_si();
+   mget_put_bl();
+   mget_put_d();
+   mget_put_f();
+   mget_put_i();
+   mget_put_si();
+   msubview_bl();
+   msubview_d();
+   msubview_f();
+   msubview_i();
+   msubview_si();
+   mtransview_bl();
+   mtransview_d();
+   mtransview_f();
+   mtransview_i();
+   mtransview_si();
+   row_col_view_bl();
+   row_col_view_d();
+   row_col_view_f();
+   row_col_view_i();
+   row_col_view_si();
+   tcloneview_d();
+   tcloneview_f();
+   tcloneview_i();
+   tcloneview_si();
+   tget_put_d();
+   tget_put_f();
+   tget_put_i();
+   tget_put_si();
+   tmisc_view_d();
+   tmisc_view_f();
+   tmisc_view_i();
+   tmisc_view_si();
+   tsubview_d();
+   tsubview_f();
+   tsubview_i();
+   tsubview_si();
+   vcloneview_bl();
+   vcloneview_d();
+   vcloneview_f();
+   vcloneview_i();
+   vcloneview_mi();
+   vcloneview_si();
+   vcloneview_vi();
+   vget_put_bl();
+   vget_put_d();
+   vget_put_f();
+   vget_put_i();
+   vget_put_mi();
+   vget_put_si();
+   vget_put_vi();
+   vsubview_bl();
+   vsubview_d();
+   vsubview_f();
+   vsubview_i();
+   vsubview_mi();
+   vsubview_si();
+   vsubview_vi();
+   vsip_finalize((void*)0);
+   return 0;
+}

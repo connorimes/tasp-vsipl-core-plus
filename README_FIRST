@@ -1,0 +1,53 @@
+This library, called the TASP_VSIPL_Core_Plus library is an implementation of 
+a VSIP Library (Vector/Signal/Image Processing Library) as defined 
+by the VSIPL Forum for a CORE profile, PLUS most of the elementwise float
+functions not in the Core profile, for instance matrix add.  It has become
+the defacto reference implementation for C VSIPL. (There is also a C++ VSIPL now, 
+see hpec-si.org).
+
+Although the people working on the TASP_VSIPL library 
+are involved with the VSIPL Forum, the library implementation is not controlled 
+or designed by any consensus of the forum, other than the need to strive 
+for compliance to the VSIPL specification. It is the intent to continue to
+add defined VSIPL functions to the PLUS library as time allows. 
+
+The TASP_VSIPL library is an effort to produce a VSIPL implementation suitable for 
+demonstration and early development and testing of VSIPL code and ideas. It is 
+based upon the pre-alpha version of Reference code produced by Hughes Research 
+Lab, and released to forum members in December, 1997. Note that Hughes 
+Research Lab has since changed its name to HRL, LLC as the result of 
+reorganizations and other changes. The TASP_VSIPL library has undergone major 
+changes from the original Reference code upon which it was based, and bears 
+little resemblance to it.
+
+The Tactical Advanced Signal Processing Common Operating Environment (TASP 
+COE) effort was striving to produce a common operating environment for signal 
+processing throughout the Navy and DOD for the COTS environment.  Although TASP 
+is history now, the goals of TASP COE live on.  VSIPL has become a standard
+library for many vendors and users who supply DOD high performance computing products. 
+
+It is the intent of the TASP VSIPL library effort to produce code suitable for 
+use on any platform supporting an ANSI C compiler. Performance is not something
+that is a high level goal for this implementation. Although the library developer
+(me) tries for performance, it is not something that is easy to produce given the 
+"any ANSI C compiler" requirement, and the development time required for high performance 
+code.  Users of VSIPL who have performance requirements which are not met by TASP VSIPL
+should look for commercial vendors.
+
+Also note that although "Correctness" is a goal, the posibility of bugs is always there.
+No quarantees are made as to correctness of any code written with this library. (See copyright
+for disclaimers).
+
+Note that I will leave the following paragraph alone, but I am now a "retired"
+Government Employee. (See Copyright for current release information).
+
+The TASP VSIPL code is required to be freely available for any use. The primary 
+author is a Government Employee, and his work on VSIPL has been released to the 
+public. Other code, produced by people who are not employed by the Government, 
+have a Copyright statement which allows free use of the code, except that the 
+Copyright must be included. Any party may donate code to the library, but they 
+must include a similar copyright in order for the code to be included in the 
+TASP version of the VSIPL library.
+
+For more information contact
+rrjudd at mac dot com

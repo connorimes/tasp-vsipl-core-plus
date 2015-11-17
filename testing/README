@@ -1,0 +1,21 @@
+This directory contains code for doing feel good tests on the TASP VSIPL
+Implementation. Not every function is tested, this is a work in progress.
+
+type "make test_all" in the testing directory to make the biggest test.
+
+Generally you sould be able to go to a directory, type "make test_all", and 
+run the resulting executable (after you have made VSIPL of course). 
+
+These tests require a private library for printing. If you made VSIPL from
+the top level the library should be already made. If not, go to src_VU and type
+make.
+
+In general output from test_all is verbose and should be piped to a file. The 
+file can be searched for "error" to see if there are any problems. There
+is a lot of output, so trying to read it line by line would be boring 
+unless your only testing a couple of functions.
+
+To test just one function look at "atest.c" which is available in the subdirectories
+of testing. 
+
+For more information read the README in the test_scp_simple directory. 

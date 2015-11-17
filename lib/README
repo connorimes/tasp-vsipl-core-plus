@@ -1,0 +1,7 @@
+$ID$
+The primary purpose of this README is to place a permanent file 
+in this directory so CVS will create the directory when exporting 
+the source for a new distribution.
+
+In this directory are library files created when the top level
+Makefile is executed.

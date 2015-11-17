@@ -1,0 +1,97 @@
+#include<stdio.h>
+#include<string.h>
+#include<vsip.h>
+#include<VU.h>
+
+#include"acos_f.h"
+#include"asin_f.h"
+#include"atan2_f.h"
+#include"atan_f.h"
+#include"cos_f.h"
+#include"sin_f.h"
+#include"sqrt_f.h"
+#include"tan_f.h"
+#include"ceil_f.h"
+#include"exp_f.h"
+#include"exp10_f.h"
+#include"floor_f.h"
+#include"fmod_f.h"
+#include"hypot_f.h"
+#include"log_f.h"
+#include"log10_f.h"
+#include"mag_f.h"
+#include"max_f.h"
+#include"min_f.h"
+#include"pow_f.h"
+#include"rsqrt_f.h"
+#include"sinh_f.h"
+#include"tanh_f.h"
+#include"cosh_f.h"
+#include"arg_f.h"
+#include"cadd_f.h"
+#include"cdiv_f.h"
+#include"cexp_f.h"
+#include"cjmul_f.h"
+#include"cmul_f.h"
+#include"clog_f.h"
+#include"cmag_f.h"
+#include"cmagsq_f.h"
+#include"cmplx_f.h"
+#include"cneg_f.h"
+#include"conj_f.h"
+#include"crecip_f.h"
+#include"csqrt_f.h"
+#include"csub_f.h"
+#include"imag_f.h"
+#include"real_f.h"
+#include"polar_f.h"
+#include"rect_f.h"
+
+int main(){
+  vsip_init((void*)0);
+  acos_f();
+  asin_f();
+  atan2_f();
+  atan_f();
+  cos_f();
+  sin_f();
+  sqrt_f();
+  tan_f();
+  ceil_f();
+  exp_f();
+  exp10_f();
+  floor_f();
+  fmod_f();
+  hypot_f();
+  log_f();
+  log10_f();
+  mag_f();
+  max_f();
+  min_f();
+  pow_f();
+  rsqrt_f();
+  sinh_f();
+  tanh_f();
+  cosh_f();
+  arg_f();
+  cadd_f();
+  cdiv_f();
+  cexp_f();
+  cjmul_f();
+  cmul_f();
+  clog_f();
+  cmag_f();
+  cmagsq_f();
+  cmplx_f();
+  cneg_f();
+  conj_f();
+  crecip_f();
+  csqrt_f();
+  csub_f(0);
+  imag_f();
+  real_f();
+  polar_f();
+  rect_f();
+  vsip_finalize((void*)0);
+  return 0;
+}

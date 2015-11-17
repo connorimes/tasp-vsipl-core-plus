@@ -1,0 +1,32 @@
+# script for gnuplot
+
+#set terminal postscript eps color
+set title "FIR versus Convolution For Decimation 1"
+set ylabel "dB"
+set xlabel "F/Fs"
+set size 1.0,0.75
+set output "conv_fir_dec1.eps"
+plot "conv_dec1" with points, "fir_dec1" with points
+pause -1
+
+set title "FIR versus Convolution For Decimation 3"
+set ylabel "dB"
+set xlabel "F/Fs"
+set output "conv_fir_dec3.eps"
+plot "conv_dec3" with points, "fir_dec3" with points
+pause -1
+#set terminal postscript eps
+set size 1.0,.4
+set title "Kaiser Window"
+set ylabel "Magnitude"
+set xlabel "Sample Point"
+set output "Kaiser.eps"
+plot "kaiser_window" with linespoints
+pause -1
+set title "Kaiser Window Frequency Response"
+set ylabel "dB"
+set xlabel "F/Fs"
+set output "Freq_Resp_Kaiser.eps"
+plot "Freq_Resp_Kaiser" with linespoints
+pause -1
+set output

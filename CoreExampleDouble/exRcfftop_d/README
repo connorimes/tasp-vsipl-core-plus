@@ -1,0 +1,5 @@
+rcfftopEx does an fft on a cos vector of length 64 defined
+by a #define L statement at the front of the code. Make sure L
+is even, rcfft only works on even input data.
+
+vsip_crfftop_f is used to do the inverse FFT.

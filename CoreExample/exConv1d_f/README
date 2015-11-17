@@ -1,0 +1,53 @@
+The matlab (matConv.m) file will allow checking of example with matlab.
+
+Steps
+Make the example
+
+run the example and send output to a .m file:
+For example
+
+    conv1dEx >afile.m
+
+Start up matlab and run the file
+>> afile
+
+This results in matlab
+>>whos
+  Name        Size         Bytes  Class
+
+  D           1x1              8  double array
+  M           1x1              8  double array
+  N           1x1              8  double array
+  h         500x1           4000  double array
+  x       10000x1          80000  double array
+  yFull    3500x1          28000  double array
+  yMin     3168x1          25344  double array
+  ySame    3334x1          26672  double array
+
+
+Then run matConv.m
+This results in matlab
+>> whos
+  Name         Size         Bytes  Class
+
+  D            1x1              8  double array
+  M            1x1              8  double array
+  N            1x1              8  double array
+  c        10499x1          83992  double array
+  cF        3500x1          28000  double array
+  cM        3168x1          25344  double array
+  cS        3334x1          26672  double array
+  first        1x1              8  double array
+  h          500x1           4000  double array
+  last         1x1              8  double array
+  length       1x1              8  double array
+  x        10000x1          80000  double array
+  yFull     3500x1          28000  double array
+  yMin      3168x1          25344  double array
+  ySame     3334x1          26672  double array
+
+So cF, cM and cS were done by matlab using there convolution
+and yFull, yMin and ySame were done by vsipl using its convolution.
+
+They can be checked against each other to see if they match.
+
