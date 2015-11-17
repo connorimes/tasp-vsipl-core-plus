@@ -53,11 +53,22 @@ ARLIB=libvsip.a
 ## The subroutines are needed to run many of the examples.
 ARLIB_VU=libVU.a
 
+## The base directory for library and header installation
+INSTALL_PREFIX ?= /usr/local
+
+## The last-level directory where headers are installed
+INSTALL_HEADER_DIR ?= tasp-vsipl-core-plus
+
 all:
 	(cd src; $(MAKE) MAKE='$(MAKE)' CC='$(CC)' OPTIONS='$(OPTIONS)' \
 AR='$(AR)' AR_OPTIONS='$(AR_OPTIONS)' ARLIB='$(ARLIB)';)
 	(cd src_VU; $(MAKE) MAKE='$(MAKE)' CC='$(CC)' OPTIONS='$(OPTIONS)' \
 AR='$(AR)' AR_OPTIONS='$(AR_OPTIONS)' ARLIB='$(ARLIB_VU)';)
+
+install: all
+	install -m 0644 lib/${ARLIB} lib/${ARLIB_VU} ${INSTALL_PREFIX}/lib
+	install -m 0755 -d ${INSTALL_PREFIX}/include/${INSTALL_HEADER_DIR}
+	install -m 0644 include/vsip.h include/VU.h include/VUX.h ${INSTALL_PREFIX}/include/${INSTALL_HEADER_DIR}
 
 clean:
 	(cd src; $(MAKE) MAKE='$(MAKE)' clean;)
